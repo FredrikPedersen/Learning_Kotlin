@@ -24,6 +24,7 @@ target/
 *.iws
 *.ipr
 .idea/
+META-INF/
 
 ### OS ###
 .DS_Store
