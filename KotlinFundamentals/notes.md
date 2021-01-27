@@ -32,14 +32,14 @@
 
 	//imagine class Question with string attributes question, answer and correctanswer
 	fun solution(): String {
-        val message = "Question: $question\nYou answered: $answer, which is "
+		val message = "Question: $question\nYou answered: $answer, which is "
 
-        return when(answer) {
-            correctAnswer -> message + "correct"
-            null -> "You haven't answered yet!"
-            else -> message + "wrong"
-        }
-    }
+		return when(answer) {
+			correctAnswer -> message + "correct"
+			null -> "You haven't answered yet!"
+			else -> message + "wrong"
+		}
+	}
 ```
 
 ### Looping Constructs
@@ -64,20 +64,20 @@
 	
 	val numbers = listOf(1,2,3)
 	
-    for (i in numbers) {
-        print(i) //1, 2, 3
-    }
+	for (i in numbers) {
+		print(i) //1, 2, 3
+	}
 	
 	for ((index, element) in numbers.withIndex()) {
-        println("$element at $index") //1 at 0, 2 at 1, 3 at 2
-    }
+		println("$element at $index") //1 at 0, 2 at 1, 3 at 2
+	}
 	
 	val ages = TreeMap<String, Int>()
-    ages["Fredrik"] = 27
-    ages["Thomas"] = 26
-    ages["Joakim"] = 25
+	ages["Fredrik"] = 27
+	ages["Thomas"] = 26
+	ages["Joakim"] = 25
     
-    for ((name, age) in ages) {
-        println("$name is $age")
-    }
+	for ((name, age) in ages) {
+		println("$name is $age")
+	}
 ```
