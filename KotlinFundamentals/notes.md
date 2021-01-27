@@ -81,3 +81,9 @@
 		println("$name is $age")
 	}
 ```
+
+### Exceptions
+
+ - In Kotlin it is not required to rethrow nor catch exceptions from classes throwing exceptions, due to the usage of unchecked exceptions.
+	- However, you CAN do so.
+ 
