@@ -41,3 +41,43 @@
         }
     }
 ```
+
+### Looping Constructs
+
+ - Kotlin's for loops are range based (like in Python)
+ - Ranges can be over any datatype that implements the comparable interface, e.g:
+	- 1..10
+	- 'a'..'z'
+
+```Kotlin
+	for (i in 1..4) {
+		print(i) //1, 2, 3, 4
+	}
+	
+	for (i in 1..10 step 2) {
+		print(i) //1, 3, 5, 7, 9
+	}
+	
+	for (i in 10 downTo 1 step 2) {
+		print(i) //10, 8, 6, 4, 2
+	}
+	
+	val numbers = listOf(1,2,3)
+	
+    for (i in numbers) {
+        print(i) //1, 2, 3
+    }
+	
+	for ((index, element) in numbers.withIndex()) {
+        println("$element at $index") //1 at 0, 2 at 1, 3 at 2
+    }
+	
+	val ages = TreeMap<String, Int>()
+    ages["Fredrik"] = 27
+    ages["Thomas"] = 26
+    ages["Joakim"] = 25
+    
+    for ((name, age) in ages) {
+        println("$name is $age")
+    }
+```
