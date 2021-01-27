@@ -1,8 +1,8 @@
 fun main(args: Array<String>) {
 
-    val question: Question = Question()
+    val question = Question()
     question.answer = "42"
-    question.solution()
+    print(question.solution())
 }
 
 class Question {
@@ -10,15 +10,13 @@ class Question {
     val correctAnswer = "42"
     val question: String = "What is the answer to life, the universe and everything?"
 
-    fun solution() {
+    fun solution(): String {
+        val message = "Question: $question\nYou answered: $answer, which is "
 
-        if (answer != null) {
-            val message =
-                "Question: $question\nYou answered: $answer, which is ${if (answer == correctAnswer) "correct" else "wrong"}"
-            println(message)
-        }
-        else {
-            println("You haven't answered yet!")
+        return when(answer) {
+            correctAnswer -> message + "correct"
+            null -> "You haven't answered yet!"
+            else -> message + "wrong"
         }
     }
 }
