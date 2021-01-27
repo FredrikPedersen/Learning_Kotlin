@@ -6,6 +6,7 @@
  - val is for immutable values.
  - public access modifier is default behaviour in Kotlin when nothing else is specified.
  - Unit is Kotlin for Void
+ - Most statements (like if, when and try) functions as expressions, thus has implicit return values.
  
  ### Null Handling
  

@@ -1,13 +1,15 @@
+import java.lang.NumberFormatException
+
 fun main(args: Array<String>) {
 
     val question = Question()
-    question.answer = "42"
+    question.answer = question.convertAnswerToInt("42")
     print(question.solution())
 }
 
 class Question {
-    var answer: String? = null
-    val correctAnswer = "42"
+    var answer: Int? = null
+    val correctAnswer = 42
     val question: String = "What is the answer to life, the universe and everything?"
 
     fun solution(): String {
@@ -16,7 +18,16 @@ class Question {
         return when(answer) {
             correctAnswer -> message + "correct"
             null -> "You haven't answered yet!"
+            -1 -> "Your answer must be an Integer"
             else -> message + "wrong"
+        }
+    }
+
+     fun convertAnswerToInt(userAnswer: String): Int {
+        return try {
+            Integer.parseInt(userAnswer)
+        } catch (exception: NumberFormatException) {
+            -1
         }
     }
 }
