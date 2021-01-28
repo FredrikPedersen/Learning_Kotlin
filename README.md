@@ -20,7 +20,6 @@
  - val is for immutable values.
  - public access modifier is default behaviour in Kotlin when nothing else is specified.
  - Unit is Kotlin for Void
- - Most statements (like if, when and try) functions as expressions, thus has implicit return values.
  
 ### Null Handling
  
@@ -46,7 +45,7 @@ print(text?.length)
 
 ### Statements as Expressions
 
- - Statements in Kotlin can be used as expressions
+ - Statements in Kotlin can be used as expressions, thus has implicit return values.
 
 ```Kotlin
 fun biggestNumber(value1: Int, value2: Int): Int {
@@ -166,5 +165,24 @@ fun String.replaceMultipleWhiteSpaceExtension(): String {
 val text = "With   Multiple   Whitespace"
 println(replaceMultipleWhiteSpace(text)) //Usage of utility function as a static function
 println(text.replaceMultipleWhiteSpaceExtension()) //Usage og utility function as an extension function
+```
 
+### Infix Functions
+
+ - Member of a class, or an extension function.
+ - Has a single parameter.
+ - Marked with Infix-keyword
+ - Used to make code more readable
+
+```Kotlin
+class Header(var Name: String)
+
+infix fun Header.plus(other: Header) : Header {
+    return  Header(this.Name + other.Name)
+}
+
+val h1 = Header("H1")
+val h2 = Header("H2")
+val h3 = h1 plus h2 //calling the infix function. This equals calling h1.plus(h2)
+println(h3.Name) //H1H2
 ```

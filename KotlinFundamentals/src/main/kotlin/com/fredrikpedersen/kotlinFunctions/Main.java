@@ -7,8 +7,8 @@ public class Main {
     }
 
     private static void callOverloadedFunction() {
-        KotlinFunctions.log("Hello There");
+        KotlinFunctions.logDefaultParam("Hello There");
         System.out.println();
-        KotlinFunctions.log("Hello There", 10);
+        KotlinFunctions.logDefaultParam("Hello There", 10);
     }
 }
