@@ -13,6 +13,8 @@
 4. [Functions](#4-functions)  
 	4.1 [Default and Named Parameters](#default-and-named-parameters)  
    	4.2 [Extension Functions](#extension-functions)
+   	4.3 [Infix Functions](#infix-functions)
+   	4.4 [Tail Recursive Functions](#tail-recursive-functions)
 
 ## 1 General
 
@@ -186,3 +188,23 @@ val h2 = Header("H2")
 val h3 = h1 plus h2 //calling the infix function. This equals calling h1.plus(h2)
 println(h3.Name) //H1H2
 ```
+
+### Tail Recursive Functions
+
+ - Many functional languages support Tail Recursiveness as a way of preventing stack overflow when working with recursive functions.
+ - To utilize tail recursivenes, the function needs to have a correct "form", and then be marked with the ***tailrec*** keyword.
+ - Doing so makes Kotlin optimize the recursiveness by turning it into a loop instead inside the bytecode, effectively removing the caveats of recursive functions while maintaining the readability they
+provide for the programmer.
+   
+
+- The [Kotlin Documentation's](https://kotlinlang.org/docs/reference/functions.html) definition of correct form for usage of ***tailrec***:
+	- *"To be eligible for the tailrec modifier, a function must call itself as the last operation it performs. You cannot use tail recursion when there is more code after the recursive call, and you 
+	  cannot use it within try/catch/finally blocks. Currently, tail recursion is supported by Kotlin for JVM and Kotlin/Native."*
+   
+```Kotlin
+tailrec fun fibonacci(n: Int, a: BigInteger, b: BigInteger): BigInteger { 
+	return if (n == 0) b else fibonacci(n - 1, a + b, a)
+ }
+
+println(fibonacci(10000, BigInteger("1"), BigInteger("0"))) //results in SO without the usage of tailrec-keyword.
+ ```
