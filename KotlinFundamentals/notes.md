@@ -1,5 +1,9 @@
 # Notes
 
+## Index
+
+[Test](#functions)
+
 ### General
 
  - var is for mutable variables.
@@ -15,13 +19,13 @@
  
  ```Kotlin
  
-	//text initialized to null, call to .length outputs null.
-	val text: String? = null
-	print(text?.length)
+//text initialized to null, call to .length outputs null.
+val text: String? = null
+print(text?.length)
 	
-	//text initialized to String-value, call to .length outputs 11
-	val text: String? = "Hello There"
-	print(text?.length)
+//text initialized to String-value, call to .length outputs 11
+val text: String? = "Hello There"
+print(text?.length)
  ````
  
 ### When-statement
@@ -30,16 +34,16 @@
 
 ```Kotlin
 
-	//imagine class Question with string attributes question, answer and correctanswer
-	fun solution(): String {
-		val message = "Question: $question\nYou answered: $answer, which is "
+//imagine class Question with string attributes question, answer and correctanswer
+fun solution(): String {
+	val message = "Question: $question\nYou answered: $answer, which is "
 
-		return when(answer) {
-			correctAnswer -> message + "correct"
-			null -> "You haven't answered yet!"
-			else -> message + "wrong"
-		}
+	return when(answer) {
+	    correctAnswer -> message + "correct"
+		null -> "You haven't answered yet!"
+		else -> message + "wrong"
 	}
+}
 ```
 
 ### Looping Constructs
@@ -50,40 +54,41 @@
 	- 'a'..'z'
 
 ```Kotlin
-	for (i in 1..4) {
-		print(i) //1, 2, 3, 4
-	}
+for (i in 1..4) {
+    print(i) //1, 2, 3, 4
+}
 	
-	for (i in 1..10 step 2) {
-		print(i) //1, 3, 5, 7, 9
-	}
+for (i in 1..10 step 2) {
+    print(i) //1, 3, 5, 7, 9
+}
 	
-	for (i in 10 downTo 1 step 2) {
-		print(i) //10, 8, 6, 4, 2
-	}
+for (i in 10 downTo 1 step 2) {
+    print(i) //10, 8, 6, 4, 2
+}
 	
-	val numbers = listOf(1,2,3)
+val numbers = listOf(1,2,3)
 	
-	for (i in numbers) {
-		print(i) //1, 2, 3
-	}
+for (i in numbers) {
+    print(i) //1, 2, 3
+}
 	
-	for ((index, element) in numbers.withIndex()) {
-		println("$element at $index") //1 at 0, 2 at 1, 3 at 2
-	}
+for ((index, element) in numbers.withIndex()) {
+    println("$element at $index") //1 at 0, 2 at 1, 3 at 2
+}
 	
-	val ages = TreeMap<String, Int>()
-	ages["Fredrik"] = 27
-	ages["Thomas"] = 26
-	ages["Joakim"] = 25
+val ages = TreeMap<String, Int>()
+ages["Fredrik"] = 27
+ages["Thomas"] = 26
+ages["Joakim"] = 25
     
-	for ((name, age) in ages) {
-		println("$name is $age")
-	}
+for ((name, age) in ages) {
+    println("$name is $age")
+}
 ```
 
 ### Exceptions
 
  - In Kotlin it is not required to rethrow nor catch exceptions from classes throwing exceptions, due to the usage of unchecked exceptions.
 	- However, you CAN do so.
- 
+	
+### Functions
