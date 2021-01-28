@@ -3,7 +3,7 @@
 ## Index
 
 1. [General](#1-general)  
-	1.1 [Null Handling](#null-handling)
+	1.1 [Null Handling](#null-handling)  
    	1.2 [Exceptions](#exceptions)
 2. [Statements](#2-statements)  
    	2.1 [Statements as Expressions](#statements-as-expressions)  
@@ -123,10 +123,14 @@ for ((name, age) in ages) {
 ### Default Parameters
 
  - Kotlin supports default parameters in functions.
- - The default value is utilized if no value is passed for the parameter
+ - The default value is utilized if no value is passed for the parameter.
+ - Note that Java does not support default parameters, so if the Kotlin code is to be supported in Java, all parameters must be passed, or the ***@JvmOverloads*** annotation must be added to the function.
+	- ***@JvmOverloads*** makes the Kotlin compiler add overloaded functions, allowing the function to be called with or without passing a value for the default parameter, and using the default value if no 
+	value is passed, thus behaving like one function with a default parameter.
 
 ```Kotlin
 
+@JvmOverloads
 fun logger(message: String, repeat: Int = 1) {
     for (i in 1..repeat) {
         println(message)

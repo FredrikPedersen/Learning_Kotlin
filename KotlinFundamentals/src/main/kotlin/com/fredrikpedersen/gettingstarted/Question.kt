@@ -23,4 +23,12 @@ class Question {
             -1
         }
     }
+
+    fun biggestNumber(value1: Int, value2: Int): Int {
+        return if (value1 > value2) {
+            value1
+        } else {
+            value2
+        }
+    }
 }
