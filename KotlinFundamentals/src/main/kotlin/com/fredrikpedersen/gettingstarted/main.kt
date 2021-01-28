@@ -1,6 +1,9 @@
-import java.io.FileReader
-
 fun main(args: Array<String>) {
-    var reader = FileReader("someFilename")
+    val question = Question()
+    question.answer = 42
+    println(question.solution())
+
+    question.answer = 69
+    println(question.solution())
 }
 
