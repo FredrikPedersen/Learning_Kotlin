@@ -1,4 +1,4 @@
-package javaInteroperability;
+package com.fredrikpedersen.javaInteroperability;
 
 public class Main {
 

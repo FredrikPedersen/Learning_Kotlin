@@ -1,6 +1,6 @@
 @file:JvmName("DisplayFunctions")
 
-package javaInteroperability
+package com.fredrikpedersen.javaInteroperability
 
 fun printer(message: String) {
     print(message);
