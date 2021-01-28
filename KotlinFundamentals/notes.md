@@ -2,9 +2,18 @@
 
 ## Index
 
-[Test](#functions)
+1. [General](#1-general)  
+	1.1 [Null Handling](#null-handling)
+   	1.2 [Exceptions](#exceptions)
+2. [Statements](#2-statements)  
+   	2.1 [Statements as Expressions](#statements-as-expressions)  
+	2.2 [When Statement](#when-statement)
+3. [Loops](#3-loops)  
+	3.1 [For-loops](#for-loops)  
+4. [Functions](#4-functions)  
+	4.1 [Default Parameters](#default-parameters)
 
-### General
+## 1 General
 
  - var is for mutable variables.
  - val is for immutable values.
@@ -12,7 +21,7 @@
  - Unit is Kotlin for Void
  - Most statements (like if, when and try) functions as expressions, thus has implicit return values.
  
- ### Null Handling
+### Null Handling
  
   - ?-operator on a value indicates that it can be null
   - ?-operator on a method call functions as a null check on the object calling the function, safely performing the operation even if the object is null.
@@ -27,6 +36,27 @@ print(text?.length)
 val text: String? = "Hello There"
 print(text?.length)
  ````
+
+### Exceptions
+
+- In Kotlin it is not required to rethrow nor catch exceptions from classes throwing exceptions, due to the usage of unchecked exceptions.
+	- However, you CAN do so.
+
+## 2 Statements
+
+### Statements as Expressions
+
+ - Statements in Kotlin can be used as expressions
+
+```Kotlin
+fun biggestNumber(value1: Int, value2: Int): Int {
+	return if (value1 > value2) {
+		value1
+	} else {
+		value2
+	}
+}
+```
  
 ### When-statement
 
@@ -46,12 +76,14 @@ fun solution(): String {
 }
 ```
 
-### Looping Constructs
+## 3 Loops
 
  - Kotlin's for loops are range based (like in Python)
  - Ranges can be over any datatype that implements the comparable interface, e.g:
 	- 1..10
 	- 'a'..'z'
+	
+### For-loops
 
 ```Kotlin
 for (i in 1..4) {
@@ -85,10 +117,22 @@ for ((name, age) in ages) {
     println("$name is $age")
 }
 ```
-
-### Exceptions
-
- - In Kotlin it is not required to rethrow nor catch exceptions from classes throwing exceptions, due to the usage of unchecked exceptions.
-	- However, you CAN do so.
 	
-### Functions
+## 4 Functions
+
+### Default Parameters
+
+ - Kotlin supports default parameters in functions.
+ - The default value is utilized if no value is passed for the parameter
+
+```Kotlin
+
+fun logger(message: String, repeat: Int = 1) {
+    for (i in 1..repeat) {
+        println(message)
+	}
+}
+
+logger("Hello There") //prints once
+logger("Hello There", 10) //prints ten times
+```
