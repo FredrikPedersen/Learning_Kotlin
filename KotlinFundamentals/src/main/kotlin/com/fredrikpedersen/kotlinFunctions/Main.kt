@@ -2,7 +2,9 @@
 package com.fredrikpedersen.kotlinFunctions
 
 fun main(args: Array<String>) {
-    log("Hello There",10)
+    log("Default Value") //prints once
+    log("Default Value Overridden", 10) //prints ten times
+    log(logRepeat = 5, message = "Parameters Named") //Parameters called in different order by naming them.
 }
 
 @JvmOverloads

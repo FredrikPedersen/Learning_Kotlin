@@ -11,7 +11,7 @@
 3. [Loops](#3-loops)  
 	3.1 [For-loops](#for-loops)  
 4. [Functions](#4-functions)  
-	4.1 [Default Parameters](#default-parameters)
+	4.1 [Default and Named Parameters](#default-and-named-parameters)
 
 ## 1 General
 
@@ -120,13 +120,18 @@ for ((name, age) in ages) {
 	
 ## 4 Functions
 
-### Default Parameters
+### Default and Named Parameters
 
  - Kotlin supports default parameters in functions.
  - The default value is utilized if no value is passed for the parameter.
- - Note that Java does not support default parameters, so if the Kotlin code is to be supported in Java, all parameters must be passed, or the ***@JvmOverloads*** annotation must be added to the function.
+ 	- Note that Java does not support default parameters, so if the Kotlin code is to be supported in Java, all parameters must be passed, or the ***@JvmOverloads*** annotation must be added to the function.
 	- ***@JvmOverloads*** makes the Kotlin compiler add overloaded functions, allowing the function to be called with or without passing a value for the default parameter, and using the default value if no 
 	value is passed, thus behaving like one function with a default parameter.
+	  
+
+ - Named parameters are a given a name when the function is called, and is used to specify parameters in whatever order is needed.
+ 	- Excellent for making it easier to understand what each value passed to a function is.
+	- Is a pure Kotlin functionality, and is in no way supported in Java.
 
 ```Kotlin
 
@@ -137,6 +142,7 @@ fun logger(message: String, repeat: Int = 1) {
 	}
 }
 
-logger("Hello There") //prints once
-logger("Hello There", 10) //prints ten times
+logger("Default Value") //prints once
+logger("Default Value Overridden", 10) //prints ten times
+logger(reapeat = 5, message = "Parameters Named") //Parameters called in different order by naming them.
 ```
