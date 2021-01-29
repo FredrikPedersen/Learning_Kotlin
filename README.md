@@ -1,24 +1,28 @@
 # Learning Kotlin - Notes
 
-## Index
+## Table of Contents
 
-1. [General](#1-general)  
-	1.1 [Null Handling](#null-handling)  
-   	1.2 [Exceptions](#exceptions)
-2. [Statements](#2-statements)  
-   	2.1 [Statements as Expressions](#statements-as-expressions)  
-	2.2 [When Statement](#when-statement)
-3. [Loops](#3-loops)  
-	3.1 [For-loops](#for-loops)  
-4. [Functions](#4-functions)  
-	4.1 [Default and Named Parameters](#default-and-named-parameters)  
-   	4.2 [Extension Functions](#extension-functions)
-   	4.3 [Infix Functions](#infix-functions)
-   	4.4 [Tail Recursive Functions](#tail-recursive-functions)
-5. [Classes and Interfaces](#5-classes-and-interfaces)  
-	5.1 [Interfaces](#interfaces)  
-   	5.2 [Classes](#classes-basics)  
-   	5.3 [Sealed Classes](#sealed-classes)
+1. [General](#1-general)
+ - 1.1 [Null Handling](#null-handling)  
+ - 1.2 [Exceptions](#exceptions)
+2. [Statements](#2-statements)
+ - 2.1 [Statements as Expressions](#statements-as-expressions)  
+ - 2.2 [When Statement](#when-statement)
+3. [Loops](#3-loops)
+ - 3.1 [For-loops](#for-loops)  
+4. [Functions](#4-functions)
+ - 4.1 [Default and Named Parameters](#default-and-named-parameters)  
+ - 4.2 [Extension Functions](#extension-functions)  
+ - 4.3 [Infix Functions](#infix-functions)  
+ - 4.4 [Tail Recursive Functions](#tail-recursive-functions)
+5. [Classes and Interfaces](#5-classes-and-interfaces)
+ - 5.1 [Interfaces](#interfaces)  
+ - 5.2 [Class Basics](#class-basics)  
+ - 5.3 [Sealed Classes](#sealed-classes)  
+ - 5.4 [Constructors](#constructors)  
+ 	- [Constructor Overloading](#constructor-overloading)  
+	- [Superclass Constructors](#superclass-constructors)  
+ - 5.5 [Data Classes](#data-classes)
 
 ## 1 General
 
@@ -257,7 +261,7 @@ class NorwegianTime : Time, EndOfTheWorld {
 }
 ````
 
-### Classes Basics
+### Class Basics
 
  - Like interfaces, classes in Kotlin works mostly in the same way as in Java
  	- Differences are mostly syntactical.
@@ -287,7 +291,7 @@ class Student: Person() {
 
  - Used to restrict class hierarchies.
  - Often referred to as "Enums on steroids".
- - Defines a restricted set og derived classes.
+ - Defines a restricted set of derived classes.
  - For a more detailed explanation and some use cases, take a look at [Baeldung's article](https://www.baeldung.com/kotlin/sealed-classes) on the subject
 
 
@@ -296,7 +300,6 @@ sealed class PersonEvent {
     class Awake: PersonEvent()
     class Asleep: PersonEvent()
     class Eating(val food: String) : PersonEvent()
-
 }
 
 fun handlePersonEvent(event: PersonEvent) {
@@ -307,3 +310,49 @@ fun handlePersonEvent(event: PersonEvent) {
     }
 }
 ````
+
+### Constructors
+
+ - Constructors in Kotlin are not provided as a method with the same name as the parent class like they are in Java, they are specified on the class definition.
+ 	- In the constructor we can the attribute's access-modifier, mutability, name, datatype and default value.
+ - Constructors can also be created by declaring an init-function within a class, this is preferred if there is going to be executed any side-effects upon object initialization. 
+   
+````Kotlin
+//Example of class with class definition constructor and an init-block.
+class Person(var name: String) {
+    
+    init {
+        print("I have been initialized")
+    }
+}
+````
+
+#### Constructor Overloading
+
+ - ***Secondary Constructors*** are used for constructor overloading. 
+	- Usage of default values are preferred over secondary constructors.
+	
+````Kotlin
+class PersonWithDefault(var name: String, val age: Int = 0)
+
+class PersonWithSecondary(var name: String) {
+    constructor(name: String, age: Int) : this(name)
+}
+````
+
+#### Superclass Constructors
+
+ - Superclass constructors can be called in the class definition where you extend the superclass.
+ - They can also be called with a similar syntax to using secondary constructors, but uses *super* instead of *this*.
+
+````Kotlin
+//Calling super class constructor in class definition
+class Student(name: String): Person(name)
+
+//Calling super class constructor using the secondary constructor syntax
+class Student: Person {
+    constructor(name: String) : super(name)
+}
+````
+
+### Data Classes
