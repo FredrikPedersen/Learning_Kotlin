@@ -17,7 +17,8 @@
    	4.4 [Tail Recursive Functions](#tail-recursive-functions)
 5. [Classes and Interfaces](#5-classes-and-interfaces)  
 	5.1 [Interfaces](#interfaces)  
-   	5.2 [Classes](#classes-basics)
+   	5.2 [Classes](#classes-basics)  
+   	5.3 [Sealed Classes](#sealed-classes)
 
 ## 1 General
 
@@ -282,3 +283,27 @@ class Student: Person() {
 }
 ```
 
+### Sealed Classes
+
+ - Used to restrict class hierarchies.
+ - Often referred to as "Enums on steroids".
+ - Defines a restricted set og derived classes.
+ - For a more detailed explanation and some use cases, take a look at [Baeldung's article](https://www.baeldung.com/kotlin/sealed-classes) on the subject
+
+
+````Kotlin
+sealed class PersonEvent {
+    class Awake: PersonEvent()
+    class Asleep: PersonEvent()
+    class Eating(val food: String) : PersonEvent()
+
+}
+
+fun handlePersonEvent(event: PersonEvent) {
+    when(event) {
+        is PersonEvent.Awake -> println("Awake")
+        is PersonEvent.Asleep -> println("Sleeping")
+        is PersonEvent.Eating -> println(event.food)
+    }
+}
+````
