@@ -356,3 +356,23 @@ class Student: Person {
 ````
 
 ### Data Classes
+
+ - We often need to store classes in Collections, which require implementations of equals and hashCode to work properly.
+	 - Sometimes you wish to implement a toString-function in a class to return something more sensible than the object address reference.
+ 	- Sometimes a class is just used to store data, like POJOs (POKOs in the case of Kotlin?).
+ - Data classes provide a convenient way to override equals, hashCode and toString.
+ - Data classes are typically immutable.
+ - Kotlin also generates a "copy" method.
+
+````Kotlin
+//Dataclass with generated equals, hashCode, toString and copy methods
+data class Meeting(val name: String, val location: String)
+
+val aMeeting = Meeting("A Meeting", "London")
+
+//Can pass in values to copy method to override existing values, all other values from original object are copied over.
+val anotherMeeting = aMeeting.copy(location = "New York")
+````
+
+
+
