@@ -15,14 +15,18 @@
    	4.2 [Extension Functions](#extension-functions)
    	4.3 [Infix Functions](#infix-functions)
    	4.4 [Tail Recursive Functions](#tail-recursive-functions)
-5. [Classes and Interfaces](#5-classes-and-interfaces)
+5. [Classes and Interfaces](#5-classes-and-interfaces)  
+	5.1 [Interfaces](#interfaces)  
+   	5.2 [Classes](#classes-basics)
 
 ## 1 General
 
- - var is for mutable variables.
- - val is for immutable values.
- - public access modifier is default behaviour in Kotlin when nothing else is specified.
- - Unit is Kotlin for Void
+ - Var is for mutable variables.
+ - Val is for immutable values.
+ - Public access modifier is default behaviour in Kotlin when nothing else is specified.  
+	- Package private modifier does not exist in Kotlin.
+	- Does however have [***internal*** access modifier](https://kotlinlang.org/docs/reference/visibility-modifiers.html), which scopes the visibility to the member's module.
+ - Unit is Kotlin for Void.
  
 ### Null Handling
  
@@ -120,6 +124,14 @@ for ((name, age) in ages) {
 ```
 	
 ## 4 Functions
+
+ - Kotlin has support for functions with expresion bodies, these have inferred return types.
+ - For functions with no return value, return type (which can be explicitly defined as Unit) can be omitted. 
+
+````Kotlin
+//Function with an expression body and inferred return type (int).
+fun sum(a: Int, b: Int) = a + b
+````
 
 ### Default and Named Parameters
 
@@ -243,3 +255,30 @@ class NorwegianTime : Time, EndOfTheWorld {
 	override fun setTime(hours: Int, mins: Int, secs: Int) {}
 }
 ````
+
+### Classes Basics
+
+ - Like interfaces, classes in Kotlin works mostly in the same way as in Java
+ 	- Differences are mostly syntactical.
+ - Classes in Kotlin are by default final, meaning they can't be extended unless explicitly marked with the ***open*** keyword.
+   	- Abstract classes are by default open
+ 	- This is also applies to class methods.
+
+```Kotlin
+abstract class Person {
+    var firstName: String = ""
+    var lastName: String = ""
+
+    fun getName() : String = "$firstName $lastName"
+    abstract fun details() : String
+}
+
+class Student: Person() {
+    var adress: String = ""
+
+    override fun details(): String {
+        return "${getName()}, living at $adress"
+    }
+}
+```
+
