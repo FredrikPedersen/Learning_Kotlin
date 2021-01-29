@@ -51,7 +51,7 @@ infix fun Header.plus(other: Header) : Header {
     return  Header(this.Name + other.Name)
 }
 
-/* ----- Tailrec Functions ----- */
+/* ----- Tail Recursive Functions ----- */
 
 tailrec fun fibonacci(n: Int, a: BigInteger, b: BigInteger): BigInteger {
     return if (n == 0) b else fibonacci(n - 1, a + b, a)

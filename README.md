@@ -15,6 +15,7 @@
    	4.2 [Extension Functions](#extension-functions)
    	4.3 [Infix Functions](#infix-functions)
    	4.4 [Tail Recursive Functions](#tail-recursive-functions)
+5. [Classes and Interfaces](#5-classes-and-interfaces)
 
 ## 1 General
 
@@ -208,3 +209,37 @@ tailrec fun fibonacci(n: Int, a: BigInteger, b: BigInteger): BigInteger {
 
 println(fibonacci(10000, BigInteger("1"), BigInteger("0"))) //results in SO without the usage of tailrec-keyword.
  ```
+
+## 5 Classes and Interfaces
+
+### Interfaces
+
+- Interfaces work mostly as they do in java.
+- To implement an interface, use the colon-operator on the member implementing the interface (see class NorwegianTime below).
+- Kotlin does not use @Override-annotation to specify overriding of implemented functions, but the override keyword.
+- When implementing two interfaces with a similar default function, you can choose which implementation you want in your class.
+
+````Kotlin
+interface Time {
+    fun setTime(hours: Int, mins: Int = 0, secs: Int = 0)
+    fun setTime(time: FredrikTime) = setTime(time.hours) //Default implementation 
+}
+
+interface EndOfTheWorld {
+    fun setTime(time: FredrikTime) {}
+}
+
+class FredrikTime { 
+	var hours: Int = 0 
+	var minutes: Int = 0
+	var seconds: Int = 0
+}
+
+class NorwegianTime : Time, EndOfTheWorld {
+	override fun setTime(time: FredrikTime) {
+		super<EndOfTheWorld>.setTime(time) //Using the default implementation from EndOfTheWorld.
+	}
+	
+	override fun setTime(hours: Int, mins: Int, secs: Int) {}
+}
+````
