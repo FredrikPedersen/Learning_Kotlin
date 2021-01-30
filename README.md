@@ -23,6 +23,7 @@
  	- [Constructor Overloading](#constructor-overloading)  
 	- [Superclass Constructors](#superclass-constructors)  
  - 5.5 [Data Classes](#data-classes)
+6. [Companion Objects](#6-companion-objects)
 
 ## 1 General
 
@@ -374,5 +375,20 @@ val aMeeting = Meeting("A Meeting", "London")
 val anotherMeeting = aMeeting.copy(location = "New York")
 ````
 
+## 6 Companion Objects
 
+ - Kotlin does not have static methods.
+ - To create Singletons you use the object keyword.
+ - Use *companion object* to get static-behaviour.
+ - Companion objects can have properties, methods and initializers, but not constructors.
+
+````Kotlin
+//create a class called Meetings and imidieately instantiates an object from it.
+object Meetings {
+    var allMetings = arrayListOf<Meeting>()
+}
+
+//It is used like you would use a static class in Java.
+Meetings.allMetings.add(Meeting(...))
+````
 
