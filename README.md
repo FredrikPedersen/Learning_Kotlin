@@ -2,9 +2,13 @@
 
 ## Table of Contents
 
+More important than course notes, the **[Kotlin documentation](https://kotlinlang.org/api/latest/jvm/stdlib/)**
+
+0. [Compilation](#0-compilation)
 1. [General](#1-general)
  - 1.1 [Null Handling](#null-handling)  
  - 1.2 [Exceptions](#exceptions)
+ - 1.3 [Type Aliases](#type-aliases)
 2. [Statements](#2-statements)
  - 2.1 [Statements as Expressions](#statements-as-expressions)  
  - 2.2 [When Statement](#when-statement)
@@ -25,15 +29,25 @@
  - 5.5 [Data Classes](#data-classes)
 6. [Companion Objects](#6-companion-objects)
 
+## 0 Compilation
+
+When Kotlin code is compiled, the Kotlin Compiler (kotlinc) takes files with the .kt extension as input and generates
+bytecode as .class files. At this point, the .class files are equivalent to Java .class files, and the JVM can run them.
+
+When running Kotlin applications, you need the Kotlin Runtime Library (KRL) in addition to the JRE. When distributing a Kotlin
+application, you have to distribute both the KRL and the JRE.
+
 ## 1 General
 
  - Var is for mutable variables.
- - Val is for immutable values.
+ - Val is for immutable values. Always declare val and change to var if needed later (immutability is encouraged).
  - Public access modifier is default behaviour in Kotlin when nothing else is specified.  
 	- Package private modifier does not exist in Kotlin.
 	- Does however have [***internal*** access modifier](https://kotlinlang.org/docs/reference/visibility-modifiers.html), which scopes the visibility to the member's module.
- - Unit is Kotlin for Void.
- 
+ - Unit is Kotlin for Void. 
+ - Semicolons are not required at the end of statements, but does not produce errors if provided.
+	
+
 ### Null Handling
  
   - ?-operator on a value indicates that it can be null
@@ -53,6 +67,36 @@ print(text?.length)
 
 - In Kotlin it is not required to rethrow nor catch exceptions from classes throwing exceptions, due to the usage of unchecked exceptions.
 	- However, you CAN do so.
+	
+### Type Aliases
+
+ - Type aliases provide alternative names for existing types. If the type name is too long you can introduce a different 
+   shorter name and use the new one instead.
+ - Type aliases are declared at the top level of a Kotlin file
+
+### Equality
+
+ - The == (equals) operator in Kotlin checks for structural equality in Kotlin, not referential equality
+ - Referential equality is checked with a === operator. The === operator has a reverse operator in the form of !==
+
+```Kotlin
+val employee1 = Employee("Fredrik", 26)
+val employee2 = Employee("Thomas", 24)
+val employee3 = Employee("Thomas", 24)
+val employee4 = employee2
+
+println(employee1 === employee2) //false
+println(employee2 === employee3) //false
+println(employee1 == employee2) //false
+println(employee2 == employee3) //true
+println(employee4 === employee2) //true
+```
+
+```Kotlin
+typealias EmployeeList = List<Employee>
+
+class Employee(var name: String, val id: Int) {}
+```
 
 ## 2 Statements
 
