@@ -11,6 +11,8 @@ More important than course notes, the **[Kotlin documentation](https://kotlinlan
  - 1.3 [Type Aliases](#type-aliases)
  - 1.4 [Equality](#equality)
  - 1.5 [Casting and Typechecking](#casting-and-typechecking)
+ - 1.6 [String Templates](#string-templates)
+ - 1.7 [Raw Strings](#raw-strings)
 2. [Statements](#2-statements)
  - 2.1 [Statements as Expressions](#statements-as-expressions)  
  - 2.2 [When Statement](#when-statement)
@@ -140,6 +142,24 @@ val numerator = 10
 val denominator = 20
 println("The value of $numerator divided by $denominator is ${numerator/denominator}")
 ````
+
+### Raw Strings
+
+Raw Strings, or tripple-quoted Strings, are used to avoid having to escape characters and to get a String on the same
+format as specified (i.e. if you put a new line in the String, it will be printed like you had put a \n-operator there in Java)
+
+The trimMargin()-function can be used to trim away everything up to and including the provided character on each new line.
+Default character if no character is passed to trimMargin is |.
+
+```Kotlin
+//No need to escape backslashes
+val filePath = """C:\someDir\someFile.txt"""
+
+// Does not need +-operators when going to a new line. Will be printed as it is declared in regards to new lines.
+val longString = """Did you ever hear the Tragedy of Darth Plagueis the wise? 
+		|I thought not. It's not a story the Jedi would tell you. It's a Sith legend. Darth Plagueis was a Dark Lord of the Sith,
+		|so powerful and so wise he could use the Force to influence the midichlorians to create life...""".trimMargin()
+ ```
 
 ## 2 Statements
 
