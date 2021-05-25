@@ -47,6 +47,11 @@ bytecode as .class files. At this point, the .class files are equivalent to Java
 When running Kotlin applications, you need the Kotlin Runtime Library (KRL) in addition to the JRE. When distributing a Kotlin
 application, you have to distribute both the KRL and the JRE.
 
+Remember that when writing Kotlin, the language is for all intents and purposes just a syntactical sugar for Java. Whether
+you write strictly non-verbose code "the Kotlin way" or take more verbose approaches to writing it, it will very likely 
+not affect application performance in any way. In the end it is all compiled to the same bytecode as it would be in Java
+anyways. Most of the best practices in Kotlin are meant for you as a developer to have easy to read code.
+
 ## 1 General
 
  - Var is for mutable variables.
