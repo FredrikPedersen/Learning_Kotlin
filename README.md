@@ -9,6 +9,8 @@ More important than course notes, the **[Kotlin documentation](https://kotlinlan
  - 1.1 [Null Handling](#null-handling)  
  - 1.2 [Exceptions](#exceptions)
  - 1.3 [Type Aliases](#type-aliases)
+ - 1.4 [Equality](#equality)
+ - 1.5 [Casting and Typechecking](#casting-and-typechecking)
 2. [Statements](#2-statements)
  - 2.1 [Statements as Expressions](#statements-as-expressions)  
  - 2.2 [When Statement](#when-statement)
@@ -29,6 +31,12 @@ More important than course notes, the **[Kotlin documentation](https://kotlinlan
  - 5.5 [Data Classes](#data-classes)
 6. [Companion Objects](#6-companion-objects)
 
+Note! Whenever referencing the Employee class, assume the following POJO class is available:
+
+```Kotlin
+class Employee(var name: String, val id: Int) {}
+```
+
 ## 0 Compilation
 
 When Kotlin code is compiled, the Kotlin Compiler (kotlinc) takes files with the .kt extension as input and generates
@@ -46,6 +54,7 @@ application, you have to distribute both the KRL and the JRE.
 	- Does however have [***internal*** access modifier](https://kotlinlang.org/docs/reference/visibility-modifiers.html), which scopes the visibility to the member's module.
  - Unit is Kotlin for Void. 
  - Semicolons are not required at the end of statements, but does not produce errors if provided.
+ - Bitwise operators (e.g. |, &, ^) are replaced with outright spelling them (e.g. and, or, xor).
 	
 
 ### Null Handling
@@ -74,6 +83,13 @@ print(text?.length)
    shorter name and use the new one instead.
  - Type aliases are declared at the top level of a Kotlin file
 
+
+```Kotlin
+typealias EmployeeList = List<Employee>
+
+class Employee(var name: String, val id: Int) {}
+```
+
 ### Equality
 
  - The == (equals) operator in Kotlin checks for structural equality in Kotlin, not referential equality
@@ -91,12 +107,39 @@ println(employee1 == employee2) //false
 println(employee2 == employee3) //true
 println(employee4 === employee2) //true
 ```
+### Casting and Typechecking
+
+Typechecking is done using the "is" keyword, rather than "instanceof" as you do in Java.
+"is" can be reversed with "!is" (not is).
+
+Casting is done using the "as" keyword.
+
+Note that Kotlin has a notion of smart-casting, whereas if a value has been checked using "is", the value is treated as
+it has already been cast. 
 
 ```Kotlin
-typealias EmployeeList = List<Employee>
-
-class Employee(var name: String, val id: Int) {}
+val something: Any = "Hello There"
+if (something is String) {
+    val newString = something as String //redundant manual casting due to smart-casting
+}
 ```
+
+### String Templates
+
+Whenever the value of a variable is needed within a string, the $-operator can be used instead of wrapping the value in
+a String.valueOf() or calling the values' .toString().
+
+This can also be used to substitute in expressions.
+
+````Kotlin
+override fun toString(): String {
+	return "Employee(name=$name, id=$id"
+}
+
+val numerator = 10
+val denominator = 20
+println("The value of $numerator divided by $denominator is ${numerator/denominator}")
+````
 
 ## 2 Statements
 
@@ -119,7 +162,7 @@ fun biggestNumber(value1: Int, value2: Int): Int {
  - The when statement is Kotlin's alternative to C-like language's switch statement.
 
 ```Kotlin
-//imagine class Question with string attributes question, answer and correctanswer
+//imagine class Question with string attributes question, answer and correctAnswer
 fun solution(): String {
 	val message = "Question: $question\nYou answered: $answer, which is "
 
