@@ -6,13 +6,12 @@ More important than course notes, the **[Kotlin documentation](https://kotlinlan
 
 0. [Compilation](#0-compilation)
 1. [General](#1-general)
- - 1.1 [Null Handling](#null-handling)  
- - 1.2 [Exceptions](#exceptions)
- - 1.3 [Type Aliases](#type-aliases)
- - 1.4 [Equality](#equality)
- - 1.5 [Casting and Typechecking](#casting-and-typechecking)
- - 1.6 [String Templates](#string-templates)
- - 1.7 [Raw Strings](#raw-strings)
+ - 1.1 [Exceptions](#exceptions)
+ - 1.2 [Type Aliases](#type-aliases)
+ - 1.3 [Equality](#equality)
+ - 1.4 [Casting and Typechecking](#casting-and-typechecking)
+ - 1.5 [String Templates](#string-templates)
+ - 1.6 [Raw Strings](#raw-strings)
 2. [Statements](#2-statements)
  - 2.1 [Statements as Expressions](#statements-as-expressions)  
  - 2.2 [When Statement](#when-statement)
@@ -49,12 +48,6 @@ anyways. Most of the best practices in Kotlin are meant for you as a developer t
 	- Does however have [***internal*** access modifier](https://kotlinlang.org/docs/reference/visibility-modifiers.html), which scopes the visibility to the member's module.
  - Semicolons are not required at the end of statements, but does not produce errors if provided.
  - Bitwise operators (e.g. |, &, ^) are replaced with outright spelling them (e.g. and, or, xor).
-	
-
-### Null Handling
- 
-  - ?-operator on a value indicates that it can be null
-  - ?-operator on a method call functions as a null check on the object calling the function, safely performing the operation even if the object is null.
  
  ```Kotlin
 //text initialized to null, call to .length outputs null.
@@ -103,12 +96,12 @@ println(employee4 === employee2) //true
 ```
 ### Casting and Typechecking
 
-Typechecking is done using the "is" keyword, rather than "instanceof" as you do in Java.
+ - Typechecking is done using the "is" keyword, rather than "instanceof" as you do in Java.
 "is" can be reversed with "!is" (not is).
 
-Casting is done using the "as" keyword.
+- Casting is done using the "as" keyword.
 
-Note that Kotlin has a notion of smart-casting, whereas if a value has been checked using "is", the value is treated as
+ - Note that Kotlin has a notion of smart-casting, whereas if a value has been checked using "is", the value is treated as
 it has already been cast. 
 
 ```Kotlin
@@ -120,10 +113,10 @@ if (something is String) {
 
 ### String Templates
 
-Whenever the value of a variable is needed within a string, the $-operator can be used instead of wrapping the value in
+ - Whenever the value of a variable is needed within a string, the $-operator can be used instead of wrapping the value in
 a String.valueOf() or calling the values' .toString().
 
-This can also be used to substitute in expressions.
+ - This can also be used to substitute in expressions.
 
 ````Kotlin
 override fun toString(): String {
@@ -137,10 +130,10 @@ println("The value of $numerator divided by $denominator is ${numerator/denomina
 
 ### Raw Strings
 
-Raw Strings, or tripple-quoted Strings, are used to avoid having to escape characters and to get a String on the same
+ - Raw Strings, or tripple-quoted Strings, are used to avoid having to escape characters and to get a String on the same
 format as specified (i.e. if you put a new line in the String, it will be printed like you had put a \n-operator there in Java)
 
-The trimMargin()-function can be used to trim away everything up to and including the provided character on each new line.
+ - The trimMargin()-function can be used to trim away everything up to and including the provided character on each new line.
 Default character if no character is passed to trimMargin is |.
 
 ```Kotlin
@@ -190,7 +183,7 @@ fun solution(): String {
 
 ### Data Types
 
-Kotlin is built on Java, and so it has the same basic datatypes as Java, most of them also functions in the same way as in Java.
+ - Kotlin is built on Java, and so it has the same basic datatypes as Java, most of them also functions in the same way as in Java.
 
 ````Kotlin
 
@@ -210,7 +203,7 @@ The new datatypes introduced by Kotlin are Any, Unit and Nothing.
 
 ### Arrays
 
-Arrays in Kotlin can also be instantiated without specifying their types, but it is possible to do so.
+ - Arrays in Kotlin can also be instantiated without specifying their types, but it is possible to do so.
 To initialise an empty array, the datatype has to be specified
 
 ````Kotlin
@@ -219,26 +212,26 @@ val names2 = arrayOf<String>("Fredrik", "Thomas", "Jokke")
 val names3 = Array<String>
 ````
 
-Retrieving elements from arrays can be done using the index
+ - Retrieving elements from arrays can be done using the index
 
 ````Kotlin
 val names = arrayOf("Fredrik", "Thomas", "Jokke")
 println(names[0]) //Fredrik
 ````
 
-Initialising arrays with values can also be done using lamdba expressions
+ - Initialising arrays with values can also be done using lamdba expressions
 
 ````Kotlin
 val evenNumbers = Array(16) {i -> i * 2} //Array with 16 elements. For each index, set the index's element to be the index multiplied by two
 ````
 
-Kotlin also allows arrays with mixed data types. It's datatype will then be inferred to Any.
+ - Kotlin also allows arrays with mixed data types. It's datatype will then be inferred to Any.
 
 ````Kotlin
 val mixedArray = arrayOf("hello", 22, 11L, 'a')
 ````
 
-To pass Kotlin arrays to Java methods taking in an array as an argument, the Array has to be initialised using a primitive
+ - To pass Kotlin arrays to Java methods taking in an array as an argument, the Array has to be initialised using a primitive
 type array.
 
 Assume we have the following Java code:
@@ -263,3 +256,39 @@ SomeClass().printNumbers(moreNumbers.toIntArray())
 ````
 
 ### Null References
+
+ - Kotlin is designed to make NullPointerExceptions hard to produce. In order to be even allowed to have
+a null value, a variables datatype will have to be given postfixed with the ?-operator.
+
+````Kotlin
+val number: Int = null //Compilation error, value not nullable
+val nullableNumber : Int? = null
+````
+
+ - In the case where you have a nullable type, you will not be able to access the dataclass' methods before a null-check has
+been performed. There is also a shorthand version of a null-check using the ?-operator.
+
+ - The safe call (shorthand) version works like this: If the value is null, the expression is evaluated to null instead of trying to call the 
+following method invocation on the null-object and producing a NullPointerException. Safe calls can also be chained multiple
+times, where the entire expression will be evaluated to null if one of the calls fails (is null).
+
+`````Kotlin
+val str: String? = "This is not null"
+
+if (str != null) {
+    str.uppercase() //Not allowed to call uppercase() on str before a null-check has  been performed.
+}
+
+str?.uppercase() //Shorthand version
+`````
+
+ - In the case where a nullable variable/value is going to be assigned to another variable/value, the Elvis-operator
+(?:) can be utilised to specify a default value for the assignment in case the nullable value is null.
+ - The Elvis-operator can also be used at the end of a chain of safe-calls.
+
+````Kotlin
+val str: String? = null
+val str2 = str ?: "This is the default value"
+````
+
+
