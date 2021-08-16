@@ -1,4 +1,4 @@
-package com.fredrikpedersen
+package com.fredrikpedersen.basics
 
 /**
  * @author Fredrik Pedersen

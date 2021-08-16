@@ -19,6 +19,7 @@ More important than course notes, the **[Kotlin documentation](https://kotlinlan
 3. [Datatypes and Null Reference Handling](#3-loops)
  - 3.1 [Datatypes](#data-types)  
  - 3.2 [Arrays](#arrays)
+ - 3.3 [Null References](#null-references)
 
 Note! Whenever referencing the Employee class, assume the following POJO class is available:
 
@@ -209,4 +210,56 @@ The new datatypes introduced by Kotlin are Any, Unit and Nothing.
 
 ### Arrays
 
+Arrays in Kotlin can also be instantiated without specifying their types, but it is possible to do so.
+To initialise an empty array, the datatype has to be specified
 
+````Kotlin
+val names = arrayOf("Fredrik", "Thomas", "Jokke")
+val names2 = arrayOf<String>("Fredrik", "Thomas", "Jokke")
+val names3 = Array<String>
+````
+
+Retrieving elements from arrays can be done using the index
+
+````Kotlin
+val names = arrayOf("Fredrik", "Thomas", "Jokke")
+println(names[0]) //Fredrik
+````
+
+Initialising arrays with values can also be done using lamdba expressions
+
+````Kotlin
+val evenNumbers = Array(16) {i -> i * 2} //Array with 16 elements. For each index, set the index's element to be the index multiplied by two
+````
+
+Kotlin also allows arrays with mixed data types. It's datatype will then be inferred to Any.
+
+````Kotlin
+val mixedArray = arrayOf("hello", 22, 11L, 'a')
+````
+
+To pass Kotlin arrays to Java methods taking in an array as an argument, the Array has to be initialised using a primitive
+type array.
+
+Assume we have the following Java code:
+````Java
+class SomeClass {
+    
+    public void printNumbers(final int[] numbers) {
+        for(int number: numbers) {
+			System.out.println(number);
+		}
+	}
+}
+````
+
+To call it in Kotlin we would need to do one of the following to not get a type-inference error:
+````Kotlin
+val numbers = intArrayOf(1, 2, 3, 4)
+SomeClass().printNumbers(numbers)
+
+val moreNumbers = arrayOf(1, 2, 3, 4)
+SomeClass().printNumbers(moreNumbers.toIntArray())
+````
+
+### Null References
