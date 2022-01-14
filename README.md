@@ -323,5 +323,9 @@ val str2: String = "Not null"
 println(str == str2) //Allowed due to == being an under the covers safe operator.
  ````
 
+### Arrays and Null References
 
-
+- You can initialize an array of a specific type with only null-values using the arrayOfNulls<T>(size: Int)-function.
+````Kotlin
+val nullableInts = arrayOfNulls<Int>(5) //array of ints with five null-values
+````
