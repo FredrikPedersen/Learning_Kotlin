@@ -262,7 +262,7 @@ a null value, a variables datatype will have to be given postfixed with the ?-op
 
 ````Kotlin
 val number: Int = null //Compilation error, value not nullable
-val nullableNumber : Int? = null
+val nullableNumber : Int? = null //Allows type to be nullable
 ````
 
  - In the case where you have a nullable type, you will not be able to access the dataclass' methods before a null-check has
@@ -276,7 +276,7 @@ times, where the entire expression will be evaluated to null if one of the calls
 val str: String? = "This is not null"
 
 if (str != null) {
-    str.uppercase() //Not allowed to call uppercase() on str before a null-check has  been performed.
+    str.uppercase() //Not allowed to call uppercase() on str before a null-check has been performed when type is nullable
 }
 
 str?.uppercase() //Shorthand version
@@ -290,5 +290,38 @@ str?.uppercase() //Shorthand version
 val str: String? = null
 val str2 = str ?: "This is the default value"
 ````
+
+ - If you are absolutely sure a value cannot be null, the not-null assertion operator (!!) can be used to skip the 
+not-null assertion. If the value is null, a NullPointerException will be thrown.
+
+````Kotlin
+val str: String? = "This is not null"
+str!!.uppercase() //no problem
+
+val str2: String? = null
+str2!!.uppercase() //NPE
+````
+
+ - In the case of functions expecting non-null values as parameters, the let-operator allows us to make a check for null
+values, not calling the function if the value is null.
+ 
+````Kotlin
+val str: String? = "Not null"
+printText(str) //Not allowed due to str being nullable.
+str?.let { printText(it) } //Won't call the function if str == null.
+
+fun printText(message: String) {
+    println(message)
+}
+ ````
+
+ - When comparing nullable and non-nullable variables, be aware that the equals function in Kotlin is a safe-operator.
+ ````Kotlin
+val str: String? = null	
+val str2: String = "Not null"
+
+println(str == str2) //Allowed due to == being an under the covers safe operator.
+ ````
+
 
 
