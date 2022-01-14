@@ -343,3 +343,67 @@ val nullableInts = arrayOfNulls<Int>(5) //array of ints with five null-values
 
 - Note: This table is **only** valid for **top-level** items
 - Top level items are public by default, in contrast to Java's top-level default; package-private.
+
+### Classes
+
+- All classes are public and final by default.
+- There are multiple ways to declare classes in Kotlin varying in terms of verbosity but all equal in functionality.
+
+````Kotlin
+//Using an init-block
+class Employee constructor(firstName: String) {
+
+	val firstName: String
+
+	init {
+		this.firstName = firstName
+	}
+
+}
+
+//Initializing properties when declared
+class Employee constructor(firstName: String) {
+
+	val firstName: String = firstName
+}
+
+//Initializing and declaring the properties in the constructor (access modifiers for constructors are placed here)
+class Employee private constructor(val firstName: String)
+
+//Initializing and declaring the properties in the constructor, without the constructor keyword
+class Employee(val firstName: String)
+
+//A class without a primary constructor
+class Employee {
+    
+    val firstName: String
+    
+    constructor(firstName: String) {
+        this.firstName = firstName
+    }
+    
+}
+````
+
+ - When needing multiple constructors, there are also multiple ways of doing this
+
+````Kotlin
+//The more verbose/Java-like way
+class Employee(val firstName: String) {
+
+	var fullTime: Boolean = true //Values not assigned in primary constructors must be given a default value
+
+	//Must call primary constructor first to handle firstName
+	//Secondary constructors does not declare properties like primary ones does. thus one cannot use val-keyword in secondary constructors 
+	constructor(firstName: String, fullTime: Boolean) : this(firstName) {
+		this.fullTime = fullTime
+	}
+}
+
+//The shorthand way. Gives the second argument a default value, making it optional when calling the constructor
+//Secondary constructors also accept default values
+class Employee(val firstName: String, var fullTime: Boolean = true)
+
+val emp1 = Employee("Fredrik") //fullTime defaults to true.
+val emp2 = Employee("Michael", false)
+````
