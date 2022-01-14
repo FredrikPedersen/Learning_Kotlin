@@ -329,3 +329,17 @@ println(str == str2) //Allowed due to == being an under the covers safe operator
 ````Kotlin
 val nullableInts = arrayOfNulls<Int>(5) //array of ints with five null-values
 ````
+
+## 4 OOP in Kotlin: Classes, Functions and Inheritance
+
+### Kotlin's Visibility Modifiers (Access Modifiers)
+ 
+| Access Modifier | Kotlin | Java |
+| --------------- | ------ | ---- |
+| Private | Visiblle withing the same file | Can't be used |
+| Protected | Can't be used | Can't be used |
+| Public | Visible everywhere | Visible everywhere |
+| Internal | Visible within the same module | N/A |
+
+- Note: This table is **only** valid for **top-level** items
+- Top level items are public by default, in contrast to Java's top-level default; package-private.
