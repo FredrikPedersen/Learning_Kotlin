@@ -548,8 +548,10 @@ println(lowercaseString.capitalize()) //Hello There
  - When working with abstract classes, the open keyword is not necessary, as abstract classes must be extended to be utilized, thus they are not final by default.
  - When overriding functions from a superclass, the function must be marked with the open keyword in the superclass, and the override keyword in the subclass.
  - Functions, like classes, does not need to be marked with the open keyword if they are abstract.
+ - If a method has been overridden by a subclass, and you explicitly don't want it to be overridden by further subclasses, it can be marked with the final keyword.
+ - Data classes cannot be extended.
 
-`````Kotlin
+````Kotlin
 abstract class Printer(val modelName: String) {
 
     open fun printModel() = println("Printer model is $modelName")
@@ -558,7 +560,7 @@ abstract class Printer(val modelName: String) {
 
 class LaserPrinter(modelName: String): Printer(modelName) {
 
-    override fun printModel() = println("Laser printer model is $modelName")
+    final override fun printModel() = println("Laser printer model is $modelName") //Cannot be overridden by subsequent sub-classes
     override fun bestSellingPrice(): Double = 1299.00
 }
-`````
+````
