@@ -524,3 +524,20 @@ add(1,2,3, label = "Result:")
 add(1,2,3,4,5,6, label = "Result:")
 add(*numbers, label = "Result:")
 ````
+
+### Extension Functions
+
+ - Extension functions is a functionality in Kotlin allowing you to seemingly add functions to existing classes.
+ - This can be done by declaring a function with the following syntax: *fun \<class>.\<name>(\<arguments>): \<returnType> {}*
+ - The function's body can then be written as if a proper member of the class it is extending, i.e. using this-keyword to work with an instance of the class.
+   - Public properties of the class can also be referenced by name inside the function body.
+
+````Kotlin
+//Adding capitalize function to the String class
+fun String.capitalize(): String {
+    return this.substring(0, 1).uppercase() + this.substring(1)
+}
+
+val lowercaseString = "hello there"
+println(lowercaseString.capitalize()) //Hello There
+````
