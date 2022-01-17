@@ -24,12 +24,6 @@ More important than course notes, the **[Kotlin documentation](https://kotlinlan
  - 4.1 [Visibility Modifiers](#kotlins-visibility-modifiers-access-modifiers)
  - 4.2 [Classes](#classes)
 
-Note! Whenever referencing the Employee class, assume the following POJO class is available:
-
-```Kotlin
-class Employee(var name: String, val id: Int) {}
-```
-
 ## 0 Compilation
 
 When Kotlin code is compiled, the Kotlin Compiler (kotlinc) takes files with the .kt extension as input and generates
