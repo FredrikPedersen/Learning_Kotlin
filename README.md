@@ -541,3 +541,24 @@ fun String.capitalize(): String {
 val lowercaseString = "hello there"
 println(lowercaseString.capitalize()) //Hello There
 ````
+
+### Inheritance
+
+ - All classes in Kotlin are by default public and final, with them being final meaning they can't be extended unless explicitly marked as non-final. For this, we have the open-keyword.
+ - When working with abstract classes, the open keyword is not necessary, as abstract classes must be extended to be utilized, thus they are not final by default.
+ - When overriding functions from a superclass, the function must be marked with the open keyword in the superclass, and the override keyword in the subclass.
+ - Functions, like classes, does not need to be marked with the open keyword if they are abstract.
+
+`````Kotlin
+abstract class Printer(val modelName: String) {
+
+    open fun printModel() = println("Printer model is $modelName")
+    abstract fun bestSellingPrice(): Double
+}
+
+class LaserPrinter(modelName: String): Printer(modelName) {
+
+    override fun printModel() = println("Laser printer model is $modelName")
+    override fun bestSellingPrice(): Double = 1299.00
+}
+`````
