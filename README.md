@@ -19,6 +19,10 @@ More important than course notes, the **[Kotlin documentation](https://kotlinlan
  - 3.1 [Datatypes](#data-types)  
  - 3.2 [Arrays](#arrays)
  - 3.3 [Null References](#null-references)
+ - 3.4 [Arrays and Null References](#arrays-and-null-references)
+4. [OOP in Kotlin: Classes, Functions and Inheritance](#4-oop-in-kotlin-classes-functions-and-inheritance)
+ - 4.1 [Visibility Modifiers](#kotlins-visibility-modifiers-access-modifiers)
+ - 4.2 [Classes](#classes)
 
 Note! Whenever referencing the Employee class, assume the following POJO class is available:
 
@@ -407,3 +411,34 @@ class Employee(val firstName: String, var fullTime: Boolean = true)
 val emp1 = Employee("Fredrik") //fullTime defaults to true.
 val emp2 = Employee("Michael", false)
 ````
+### Properties and Backing Fields
+
+- When declaring public properties for a class, getters and setters are automatically generated and available by using dot-notations.
+- Note that vals don't get setters generated, as they are final.
+- Kotlin's rule for properties is that getters and setters have the same visibility as the properties, or a more restrictive visibility.
+- Due to how the dot-notation uses the getters and setters under the covers, the properties are not directly accessed even when public, and therefore private properties are only necessary if they are only supposed to be used inside the class.
+- If one needs to do something more specific in getter and setters than the standard generated methods provide, one has to declare the properties inside the class and not in a primary constructor.
+
+
+````Kotlin
+class Employee(val firstName: String, var fullTime: Boolean = true) {}
+
+val emp = Employee("Fredrik")
+println(emp.firstName) //Using the getter via the dot-notation
+emp.fullTime = false //Using the setter via the dot-notation.
+
+//Example using custom getters and setters for fullTime
+class Employee(val firstName: String, fullTime: Boolean = true) {
+
+	var fullTime = fullTime
+		get() {
+			println("Running custom get")
+			return field
+		}
+		set(value) {
+			println("Running custom set")
+			field = value
+		}
+}
+````
+
