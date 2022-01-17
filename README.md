@@ -442,3 +442,35 @@ class Employee(val firstName: String, fullTime: Boolean = true) {
 }
 ````
 
+### Constants and Data Classes
+
+- Constants can be declared at top-level outside of classes
+
+````Kotlin
+val MY_CONSTANT = 100
+
+fun main(args: Array<String>) {
+    println(MY_CONSTANT)
+}
+````
+
+ - Kotlin has a special type of class called a data class, used for objects meant to store state and nothing else.
+ - Data classes come with toString, equals, hashCode, and copy function implementations (which can all be overriden manually)
+ - You can declare properties inside the data class (as in not in he primary constructor), but they will not be included in the generated functions.
+ - Data classes have a few requirements:
+   1. The primary constructor has to have at least one parameter 
+   2. All the primary constructor parameters has to be marked var or val
+   3. Data classes cannot be abstract, sealed or inner classes
+
+````Kotlin
+data class Car(val color: String, val model: String, val year: Int) {}
+
+val car = Car("someCar", "someModel", 1994)
+val car2 = Car("otherCar", "otherModel", 1997)
+val car3 = car.copy()
+val car4 = car.copy(year = 2022) //Specific properties can be overridden at will in the copy function
+
+println(car)
+println(car.equals(car2))
+println(car.hashCode())
+````
