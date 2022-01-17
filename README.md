@@ -455,7 +455,8 @@ fun main(args: Array<String>) {
 ````
 
  - Kotlin has a special type of class called a data class, used for objects meant to store state and nothing else.
- - Data classes come with toString, equals, hashCode, and copy function implementations (which can all be overriden manually)
+ - They are declared by using the keyword data before class.
+ - Data classes come with toString, equals, hashCode, and copy function implementations (which can all be overriden manually).
  - You can declare properties inside the data class (as in not in he primary constructor), but they will not be included in the generated functions.
  - Data classes have a few requirements:
    1. The primary constructor has to have at least one parameter 
@@ -473,4 +474,53 @@ val car4 = car.copy(year = 2022) //Specific properties can be overridden at will
 println(car)
 println(car.equals(car2))
 println(car.hashCode())
+````
+
+### Function Basics
+
+- Functions are declared with the following Syntax: *fun \<name>(\<arguments>): \<returnType> {}*
+- The default return type for Kotlin functions are Unit.
+- There is also a shorthand version without brackets for functions that only returns the result of an expression.
+- The curly bracket version are called block-body functions, while the shorthand versions are called expression functions.
+- Functions can be called using named arguments, where you specify which parameter is given what value, and in an order of your choosing.
+- Member functions (methods in Java-lingo) are called just like in Java, by instantiating an object of a class and then calling *classObject.method()*
+
+`````Kotlin
+//Full syntax
+fun multiply(multiplicand: Int, multiplier: Int): Int {
+    return multiplicand * multiplier
+}
+
+//Shorthand version, with the return type inferred by the compiler
+fun multiply(multiplicand: Int, multiplier: Int) = multiplicand * multiplier
+
+//Calling the function "normally"
+multiply(3, 4)
+
+//Calling the function using named arguments
+multiply(multiplier = 12, multiplicand = 5)
+`````
+- Functions with variable amount of arguments can be declared using the varargs keyword.
+- Like with Java's ...-operator for varargs, the varargs operator creates an Array of the specified argument type.
+- There can only be one vararg parameter in a function signature.
+- The vararg argument does not have to be the last argument due to named parameters, but if it isn't the last argument, the method HAS to be called using named parameters.
+- Unlike Java, Kotlin's varargs does not accept arrays as argument types. The spread-operator (*) comes in handy if one needs to pass an array into a function with a vararg parameter by unpacking the array.
+
+````Kotlin
+//varargs creates an array of integers in this case
+fun add(vararg numbers: Int, label: String) {
+    var result = 0
+
+    for (number in numbers) {
+        result += number
+    }
+
+    println("$label $result")
+}
+
+val numbers = arrayOf(1, 2, 3)
+
+add(1,2,3, label = "Result:")
+add(1,2,3,4,5,6, label = "Result:")
+add(*numbers, label = "Result:")
 ````
