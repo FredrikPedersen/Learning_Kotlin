@@ -654,3 +654,43 @@ println(CompanyCommunications.getCopyrightLine())
 ````
 
 ### Companion Objects
+
+- Companion objects allows you to access members of a class without instantiating the class, similar to the behaviour of static in Java
+- Only one Companion object is allowed per class
+- Naming the companion is optional
+
+````Kotlin
+class SomeClass {
+  
+  companion object SomeCompanion {
+    private var privateVar = 6
+
+    fun accessPrivateVar() = "I am accessing privateVar $privateVar"
+  }
+}
+
+println(SomeClass.accessPrivateVar())
+````
+
+- A frequent use case for companion objects is to implement a factory pattern as they allow you to call private constructors
+
+````Kotlin
+class FactoryClass private constructor(val someString: String) {
+
+  companion object {
+
+    fun create(str: String) = FactoryClass(str)
+
+    fun create(str: String, lowerCase: Boolean): FactoryClass {
+      return if (lowerCase) {
+        FactoryClass(str.lowercase())
+      } else {
+        FactoryClass(str.uppercase())
+      }
+    }
+  }
+}
+
+val factoryMade1 = FactoryClass.create("I was made by a factory")
+val factoryMade2 = FactoryClass.create("I was also made by a factory and am really intense about it", true)
+````
