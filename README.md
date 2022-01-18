@@ -694,3 +694,22 @@ class FactoryClass private constructor(val someString: String) {
 val factoryMade1 = FactoryClass.create("I was made by a factory")
 val factoryMade2 = FactoryClass.create("I was also made by a factory and am really intense about it", true)
 ````
+
+### Enums
+
+ - Enums in Kotlin are very similar to Enums in Java
+
+````Kotlin
+enum class Department(val fullName: String, val numEmployees: Int) {
+  
+  HR("Human Resources", 5),
+  IT("Information Technology", 10),
+  ACCOUNTING("Accounting", 3),
+  SALES("Sales", 20);
+
+  fun getDeptInfo() = "The $fullName department has $numEmployees employees"
+}
+
+println(Department.IT.getDeptInfo())
+````
+
