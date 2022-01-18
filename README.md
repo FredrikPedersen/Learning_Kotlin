@@ -634,3 +634,23 @@ class MyClass : MySubInterface {
     }
 }
 ````
+
+### Singletons
+
+- The object-keyword in Kotlin is used to create objects of anonymous classes that can be used one time.
+- The object keyword is also useful for creating singleton classes.
+- The instance of an object is created the first time the object is used.
+
+````Kotlin
+object CompanyCommunications {
+
+  val currentYear = Year.now().value
+
+  fun getTagLine() = "Our Company Rocks!"
+  fun getCopyrightLine() = "Copyright \u00A9 $currentYear Our Company. All rights Reserved"
+}
+
+println(CompanyCommunications.getCopyrightLine())
+````
+
+### Companion Objects
