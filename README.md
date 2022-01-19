@@ -30,6 +30,16 @@ More important than course notes, the **[Kotlin documentation](https://kotlinlan
 
 - 4.1 [Visibility Modifiers](#kotlins-visibility-modifiers-access-modifiers)
 - 4.2 [Classes](#classes)
+- 4.3 [Properties and Backing Fields](#properties-and-backing-fields)
+- 4.4 [Constants and Data Classes](#constants-and-data-classes)
+- 4.5 [Function Basics](#function-basics)
+- 4.6 [Extension Functions](#extension-functions)
+- 4.7 [Inheritance](#inheritance)
+- 4.8 [Interfaces](#interfaces)
+- 4.9 [Singletons](#singletons)
+- 4.10 [Companion Objects](#companion-objects)
+- 4.11 [Enums](#enums)
+- 4.12 [Imports](#imports)
 
 ## 0 Compilation
 
@@ -655,9 +665,9 @@ println(CompanyCommunications.getCopyrightLine())
 
 ### Companion Objects
 
-- Companion objects allows you to access members of a class without instantiating the class, similar to the behaviour of static in Java
-- Only one Companion object is allowed per class
-- Naming the companion is optional
+- Companion objects allows you to access members of a class without instantiating the class, similar to the behaviour of static in Java.
+- Only one Companion object is allowed per class.
+- Naming the companion is optional.
 
 ````Kotlin
 class SomeClass {
@@ -672,7 +682,7 @@ class SomeClass {
 println(SomeClass.accessPrivateVar())
 ````
 
-- A frequent use case for companion objects is to implement a factory pattern as they allow you to call private constructors
+- A frequent use case for companion objects is to implement a factory pattern as they allow you to call private constructors.
 
 ````Kotlin
 class FactoryClass private constructor(val someString: String) {
@@ -697,7 +707,7 @@ val factoryMade2 = FactoryClass.create("I was also made by a factory and am real
 
 ### Enums
 
- - Enums in Kotlin are very similar to Enums in Java
+ - Enums in Kotlin are very similar to Enums in Java.
 
 ````Kotlin
 enum class Department(val fullName: String, val numEmployees: Int) {
@@ -713,3 +723,8 @@ enum class Department(val fullName: String, val numEmployees: Int) {
 println(Department.IT.getDeptInfo())
 ````
 
+### Imports
+
+- Syntax for importing classes and interfaces is equal to how it is done in Java.
+- A top level function is also imported in the same way.
+- Kotlin allows for import aliases e.g. using the as-keyword after an import statement followed by the alias it should be given.
