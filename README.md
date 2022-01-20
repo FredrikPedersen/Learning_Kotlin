@@ -41,6 +41,8 @@ More important than course notes, the **[Kotlin documentation](https://kotlinlan
 - 4.11 [Enums](#enums)
 - 4.12 [Imports](#imports)
 
+5. [Loops, and the If, When, and Try/Catch Expressions]
+
 ## 0 Compilation
 
 When Kotlin code is compiled, the Kotlin Compiler (kotlinc) takes files with the .kt extension as input and generates
@@ -728,3 +730,106 @@ println(Department.IT.getDeptInfo())
 - Syntax for importing classes and interfaces is equal to how it is done in Java.
 - A top level function is also imported in the same way.
 - Kotlin allows for import aliases e.g. using the as-keyword after an import statement followed by the alias it should be given.
+
+## 5 Loops, and the If, When and Try/Catch Expressions
+
+- Note: The while and do-while loop is not covered due to having the same syntax and behaviour as in Java.
+
+### For-loop and Ranges
+
+ - The traditional for-loop is not available in Kotlin.
+ - For-loops in Kotlin uses ranges.
+   - "A range defines a closed interval in the mathematical sense: it is defined by its two endpoint values which are both included in the range" - Kotlin Docs.
+   - Ranges and Progressions are explained best in the [Kotlin Docs](https://kotlinlang.org/docs/ranges.html#progression)
+ - To create a range, use the rangeTo function, or it's shorthand, the ..-operator.
+ - A reverse range is created using the downTo-function.
+ - The for-loop uses the syntax: *for(\<variableName> in \<range>) {}*.
+
+````Java
+//This type of for-loop is not available in Kotlin
+for (int i = 0; i < 10; i++) {
+    System.out.println(i);
+}
+````
+````Kotlin
+//Demonstration of ranges
+val intRange = 1.rangeTo(20)
+val charRange = 'a' .. 'z'
+val stringRange = "XYZ".downTo("ABD")
+
+println(3 in intRange) //true
+println(10 in intRange) //false
+println('q' in charRange) //true
+println("CCC" in stringRange) //true
+
+//Iterating over ranges
+for (i in intRange) {
+    println(i)
+}
+
+//Does 4 steps per iteration 
+for (i in intRange step 4) {
+    println(i) //1, 5, 9, 13, 17
+}
+
+//Can also loop backwards
+for (i in 20 downTo 15) {
+    println(i)
+}
+
+//Exclude the end-value with the until-keyword
+for (i in 1 until 10) {
+    println(i) //1..9
+}
+
+//Does not work due to String Ranges not being iterable
+for (s in stringRange) {
+    println(s)
+}
+````
+
+ - Looping through arrays uses the same syntax as ranges
+ - The in-operator can also be used to check for values in a range or an array without writing a loop.
+
+````Kotlin
+val seasons = arrayOf("Spring", "Summer", "Winter", "Fall")
+
+for (season in seasons) {
+    println(season)
+}
+
+//One can also iterate through an array using indexes
+for (index in seasons.indices) { 
+    println("${seasons[index]} is season number $index}")
+}
+
+//The forEach loop also exists in Kotlin and utilizes lambda expressions
+seasons.forEach { println(it) }
+seasons.forEachIndexed {index, value -> println("$value is season $index")}
+
+val isNotASeason = "whatever" !in seasons //true
+val containsE = 'e' in "Hello" //True
+
+````
+
+ - Loops can also be given names which can be referenced with break and continue statements.
+ - It is done using the syntax \<loopName>@ \<loop expression>.
+
+````Kotlin
+//Breaks out of k and j loop when k = 7
+for (i in 1..3) {
+    println("i = $i")
+  
+    jloop@ for (j in 1..4) {
+        println("j = $j")
+      
+        for (k in 5..10) {
+            println("k = $k")
+            
+            if (k == 7) {
+                break@jloop
+            }
+        }
+    }
+}
+````
