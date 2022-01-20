@@ -833,3 +833,20 @@ for (i in 1..3) {
     }
 }
 ````
+
+### The If Expression
+
+- Contrary to Java, If-statements also functions as expressions, being able to store the statement's value.
+- The shorthand ternary operator from Java does NOT exist in Kotlin.
+- If used as an expression, there must always be an else-branch, as the expression must return something if the condition is not met.
+
+````Kotlin
+//Using the If-statement as expression
+val num: Int = if (someCondition) 420 else 69
+
+val num2 : Int = if (someCondition) { 
+    420 
+} else { 
+    69
+}
+````
