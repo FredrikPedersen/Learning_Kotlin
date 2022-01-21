@@ -900,3 +900,18 @@ when {
 
 ### The Try/Catch Expression
 
+- The try/catch syntax is similar to that in Java, and is used for the same purposes.
+  - Note: Kotlin does not make a distinction between checked and unchecked exceptions.
+- Like If and When, Try/Catch is an expression which can return a value.
+  - The finally-block does not return any value.
+
+````Kotlin
+val x: Int = try {
+    Integer.parseInt("3")
+} catch (e: NumberFormatException) {
+    -1
+} finally {
+    println("I'm in the finally block, and I do not return any values")
+    -2 //This return value is ignored when the expression is evaluated
+}
+````
