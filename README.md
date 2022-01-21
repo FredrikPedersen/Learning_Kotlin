@@ -41,7 +41,11 @@ More important than course notes, the **[Kotlin documentation](https://kotlinlan
 - 4.11 [Enums](#enums)
 - 4.12 [Imports](#imports)
 
-5. [Loops, and the If, When, and Try/Catch Expressions]
+5. [Loops, and the If, When, and Try/Catch Expressions](#5-loops-and-the-if-when-and-trycatch-expressions)
+
+ - 5.1 [For-loop and Ranges](#for-loop-and-ranges)
+ - 5.2 [The If Expression](#the-if-expression)
+ - 5.3 [The When Expression](#the-when-expression)
 
 ## 0 Compilation
 
@@ -850,3 +854,49 @@ val num2 : Int = if (someCondition) {
     69
 }
 ````
+
+### The When Expression
+
+ - The when-expressions is essentially Java's switch-expression on steriods.
+ - There is no break statement in Kotlin, it is done under the covers in each when-case, meaning fall-through cases are not possible in Kotlin.
+ - Multiple cases are allowed on one line.
+ - Ranges are allowed as cases.
+ - Expressions are allowed as cases.
+ - Class types are allowed as cases.
+ - Enums are allowed as cases.
+ - Since when is an expression, it can return values to be stored in variables.
+   - Like the If-expressions, this requires an else-case.
+ - There can also be Switch-expressions without a specific value to compare each case against.
+
+`````Kotlin
+val num = 200
+val x = 20
+
+//Equals a Java Switch/Case with a case for 100, 200, 300 and default, with a break in each of them.
+when (num) {
+    100, 600 -> println("100 or 600") //Multiple cases in one line
+    in 200..299 -> println("In range 200 to 299") //Using a range as a case
+    x + 300 -> println("Bigger than 300") //Using an expression as a case
+    else -> println("Does not match anything")
+}
+
+val unknownType: Any = "I am a String"
+
+//Checking for a specific type, returning an integer-value for each case
+val y: Int = when (unknownType) {
+    is String -> 1
+    is BigDecimal -> 2
+    is Int -> 3
+    else -> -1
+}
+
+//Without a value to compare each case to
+when {
+    num > x -> println("$num is bigger than $x")
+    num < x -> println("$num is smaller than $x")
+    else -> println("$num and $x are alike")
+}
+`````
+
+### The Try/Catch Expression
+
