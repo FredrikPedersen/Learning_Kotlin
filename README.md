@@ -32,7 +32,7 @@ More important than course notes, the **[Kotlin documentation](https://kotlinlan
 - 4.2 [Classes](#classes)
 - 4.3 [Properties and Backing Fields](#properties-and-backing-fields)
 - 4.4 [Constants and Data Classes](#constants-and-data-classes)
-- 4.5 [Function Basics](#function-basics)
+- 4.5 [Function Basics](#functions)
 - 4.6 [Extension Functions](#extension-functions)
 - 4.7 [Inheritance](#inheritance)
 - 4.8 [Interfaces](#interfaces)
@@ -46,6 +46,11 @@ More important than course notes, the **[Kotlin documentation](https://kotlinlan
  - 5.1 [For-loop and Ranges](#for-loop-and-ranges)
  - 5.2 [The If Expression](#the-if-expression)
  - 5.3 [The When Expression](#the-when-expression)
+ - 5.4 [The Try/Catch Expression](#the-trycatch-expression)
+
+6. [Lambda Expressions, Collections and Generics](#6-lambda-expressions-collections-and-generics)
+
+ - 6.1 [Lambda Expressions](#lambda-expressions)
 
 ## 0 Compilation
 
@@ -514,7 +519,7 @@ println(car.equals(car2))
 println(car.hashCode())
 ````
 
-### Function Basics
+### Functions
 
 - Functions are declared with the following Syntax: *fun \<name>(\<arguments>): \<returnType> {}*
 - The default return type for Kotlin functions are Unit.
@@ -525,6 +530,8 @@ println(car.hashCode())
   of your choosing.
 - Member functions (methods in Java-lingo) are called just like in Java, by instantiating an object of a class and then
   calling *classObject.method()*
+- In Kotlin, functions are first-class citizens, meaning they can be stored in variables and data structures, and can be passed as arguments to and returned from other higher-order functions. I.e. you can perform any operation on function that are possible for other non-function values.
+  - This is not covered in the course, so see the [Kotlin Docs](#https://kotlinlang.org/docs/lambdas.html)
 
 `````Kotlin
 //Full syntax
@@ -904,6 +911,8 @@ when {
   - Note: Kotlin does not make a distinction between checked and unchecked exceptions.
 - Like If and When, Try/Catch is an expression which can return a value.
   - The finally-block does not return any value.
+- There is no equivalent of try-with-resources in Kotlin, instead there is an extension method called use, which is applicable to all AutoCloseable and Closeable objects.
+  - See [Baeldung's Article](https://www.baeldung.com/kotlin/try-with-resources) for more on the use-method
 
 ````Kotlin
 val x: Int = try {
@@ -915,3 +924,53 @@ val x: Int = try {
     -2 //This return value is ignored when the expression is evaluated
 }
 ````
+
+## 6 Lambda Expressions, Collections and Generics
+
+- Kotlin has a couple of it's own collection classes, but mostly uses the Java collections with some added convenience functions.
+- There are also some enhancements to lambda expressions.
+
+- For some of the examples in this chapter, asume we have the following Employee class avaialable: 
+
+````Kotlin
+data class Employee (val firstName: String, val lastName: String, val startYear: Int) {}
+````
+
+### Lambda Expressions
+
+ - The lambda syntax is mostly the same as in Java.
+ - Lambdas has to be withing curly-braces.
+ - Lambdas can be stored in variables.
+ - Lambdas can be called directly using the run-function.
+ - When a lambda expression is the last parameter for a function, it can be passed without using parenthesis for the function (see example with minBy-functiion below). This is known as trailing lambdas.
+ - When there is only one possible argument for the lambda expressions, the it-keyword can be utilized.
+ - Member references are, like in Java, also allowed.
+ - Using top level functions are allowed, but they cannot take any arguments.
+ - Unlike Java, lambdas in Kotlin can access non-final local variables, but they have to be declared before the lambda-expression.
+
+````Kotlin
+fun topLevelFunction() = println("I'm a top-level function!")
+
+val employees = listOf(
+  Employee("Fredrik", "Pedersen", 2022),
+  Employee("Thomas", "Kristiansen", 2022),
+  Employee("Joakim", "Standal", 2019),
+  Employee("Andreas", "Rinvoll", 2023)
+)
+
+// A lambda expression executed using the run-function.
+run { println("This is a lambda function!") }
+
+//A top-level function run with a lambda
+run {::topLevelFunction}
+
+//Passing a lambda expression to the minBy-function
+println(employees.minBy { emp -> e.startYear })
+
+//The same expression, but using the it-keyword
+println(employees.minBy { it.startYear })
+
+//Again, but using a member-reference
+println(employees.minBy { Employee::startYear })
+````
+
