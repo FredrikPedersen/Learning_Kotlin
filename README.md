@@ -930,10 +930,17 @@ val x: Int = try {
 - Kotlin has a couple of it's own collection classes, but mostly uses the Java collections with some added convenience functions.
 - There are also some enhancements to lambda expressions.
 
-- For some of the examples in this chapter, asume we have the following Employee class avaialable: 
+- For some of the examples in this chapter, assume we have the following Employee class and list of Employee objects available: 
 
 ````Kotlin
 data class Employee (val firstName: String, val lastName: String, val startYear: Int) {}
+
+val employees = listOf(
+  Employee("Fredrik", "Pedersen", 2022),
+  Employee("Thomas", "Kristiansen", 2022),
+  Employee("Joakim", "Standal", 2019),
+  Employee("Andreas", "Rinvoll", 2023)
+)
 ````
 
 ### Lambda Expressions
@@ -951,13 +958,6 @@ data class Employee (val firstName: String, val lastName: String, val startYear:
 ````Kotlin
 fun topLevelFunction() = println("I'm a top-level function!")
 
-val employees = listOf(
-  Employee("Fredrik", "Pedersen", 2022),
-  Employee("Thomas", "Kristiansen", 2022),
-  Employee("Joakim", "Standal", 2019),
-  Employee("Andreas", "Rinvoll", 2023)
-)
-
 // A lambda expression executed using the run-function.
 run { println("This is a lambda function!") }
 
@@ -974,3 +974,94 @@ println(employees.minBy { it.startYear })
 println(employees.minBy { Employee::startYear })
 ````
 
+- Using a lambda expression with a receiver is a handy way to make code more consise.
+  - Note: a receiver object is an object passed to a lambda expression.
+- When passing an instance of an object to the with-function, all of the instance's member functions becomes available without directly referencing the instance inside the lambda body.
+- Returning the when-function returns the result of the last expression withing it's block.
+
+````Kotlin
+//Passing a StringBuilder-instance to the with-function and returning the StringBuilder.
+//Note how the append and toString functions of StringBuilder are available without referencing the instance.
+fun count(start: Int, end: Int): String {
+  return with(StringBuilder()) {
+    for (i in start until end) {
+      append(i.toString())
+      append(", ")
+    }
+
+    append(end)
+    toString()
+  }
+}
+
+//Same method without using the with-function for reference.
+fun count(start: Int, end: Int): String {
+  val numbers = StringBuilder()
+  
+  for (i in start until end) { 
+    numbers.append(i)
+    numbers.append(", ")
+  }
+  
+  numbers.append(end)
+  return numbers.toString()
+}
+````
+
+- The apply-function works mostly the same as the with-function, but it is applied on an instance rather than passing the instance to the function.
+- The apply-function returns the instance it is applied to.
+
+````Kotlin
+//Same function as previous example, but with apply() instead of with()
+fun count(start: Int, end: Int): String {
+  return StringBuilder().apply {
+    for (i in start until end) {
+      append(i.toString())
+      append(", ")
+    }
+
+    append(end)
+  }.toString()
+}
+````
+
+- Labels comes in handy if performing operations inside nested apply() or with()-calls
+
+````Kotlin
+"Some String".apply someString@ { 
+    "Another String".apply { 
+        println(lowerCase()) //Applies on Another String
+        println(this@someString.uppercase()) //Applies on Some String
+    }
+}
+````
+
+- Returning values from an inline lambda will return a value for entire function the lambda is invoked from.
+  - This is called a non-local return.
+- The non-local return behaviour can be overridden by labelling the lambda
+
+````Kotlin
+//Non local-return, ends the method execution if an employee with lastName is found
+fun findByLastName(employees: List<Employee>, lastName: String) {
+  employees.forEach {
+    if (it.lastName == lastName) {
+      print("Found employee with lastname $lastName")
+      return
+    }
+  }
+
+  println("Found no employee with lastname $lastName")
+}
+
+//Local return will execute both println()-invocations.
+fun findByLastName(employees: List<Employee>, lastName: String) {
+  employees.forEach labeledLambda@{
+    if (it.lastName == lastName) {
+      print("Found employee with lastname $lastName")
+      return@labeledLambda
+    }
+  }
+
+  println("Found no employee with lastname $lastName")
+}
+````
