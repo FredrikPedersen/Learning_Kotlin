@@ -1065,3 +1065,29 @@ fun findByLastName(employees: List<Employee>, lastName: String) {
   println("Found no employee with lastname $lastName")
 }
 ````
+
+### Lists
+
+- When working with Collections, Kotlin makes a distinction between mutable and immutable collections.
+- The standard lists are immutable and is an implementation of *java.util.Arrays$ArrayList*.
+- Lists in Kotlin allows the usage of member functions and square-bracket annotations to perform operations on the list's contents
+
+````Kotlin
+val immutable = listOf("Spring", ".NET", "Django") //Default immutable list, java.util.Arrays$ArrayList
+val emptyList = emptyList<String>() //kotlin.collections.EmptyList
+val notNull = listOfNotNull("hello", null, "there") //Removes any null values, java.util.Arrays$ArrayList
+val arrayList = arrayListOf("Hello", "There") //A mutable ArrayList, java.util.ArrayList 
+val mutable = mutableListOf("Hello", "There") //A mutable List, java.util.ArrayList
+
+//Converting an array to a list
+val array = arrayOf("black", "white", "green")
+val spreadList = listOf(*array) //Using spread-operator
+val functionList = array.toList() //Using member-function of array-class
+
+//Using square-bracket annotations and member functions to change and retrieve values from a mutable list
+mutable[1] = "Changed"
+mutable.set(1, "Changed Again")
+
+println(mutable[1])
+println(mutable.get(1))
+````
