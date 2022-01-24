@@ -51,6 +51,8 @@ More important than course notes, the **[Kotlin documentation](https://kotlinlan
 6. [Lambda Expressions, Collections and Generics](#6-lambda-expressions-collections-and-generics)
 
  - 6.1 [Lambda Expressions](#lambda-expressions)
+ - 6.2 [Lists](#lists)
+ - 6.3 [Kotlin Collections Functions](#collections-functions)
 
 ## 0 Compilation
 
@@ -1073,14 +1075,14 @@ fun findByLastName(employees: List<Employee>, lastName: String) {
 - Lists in Kotlin allows the usage of member functions and square-bracket annotations to perform operations on the list's contents
 
 ````Kotlin
-val immutable = listOf("Spring", ".NET", "Django") //Default immutable list, java.util.Arrays$ArrayList
+val immutable = listOf("Hello", "There") //Default immutable list, java.util.Arrays$ArrayList
 val emptyList = emptyList<String>() //kotlin.collections.EmptyList
-val notNull = listOfNotNull("hello", null, "there") //Removes any null values, java.util.Arrays$ArrayList
+val notNull = listOfNotNull("Hello", null, "There") //Removes any null values, java.util.Arrays$ArrayList
 val arrayList = arrayListOf("Hello", "There") //A mutable ArrayList, java.util.ArrayList 
 val mutable = mutableListOf("Hello", "There") //A mutable List, java.util.ArrayList
 
 //Converting an array to a list
-val array = arrayOf("black", "white", "green")
+val array = arrayOf("Hello", "There")
 val spreadList = listOf(*array) //Using spread-operator
 val functionList = array.toList() //Using member-function of array-class
 
@@ -1090,4 +1092,35 @@ mutable.set(1, "Changed Again")
 
 println(mutable[1])
 println(mutable.get(1))
+````
+
+### Collections Functions
+
+- Some handy functions when working with Kotlin Collections:
+  - List.last() - Returns the last element in the list.
+  - List.first() - Returns the first element in the list.
+  - List.asReversed() - Returns a reversed version of the list the function is invoked on.
+  - List.getOrNull(index: Int) - Returns an element at the given index or null if it does not exist.
+  - List.maxOrNull() - Returns the largest element, or null if there are no elements.
+  - Iterable.zip(other: Iterable\<R>) - Returns a combined version of the passed in Iterable and the one the zip-function is invoked on.
+    - The resulting list consists of kotlin.Pair instances, where elements having the same index in the different collections are grouped into a pair.
+  - Lists can be concatenated like Strings.
+  - Iterable.union(other: Iterable\<R>) - Returns a combined version of the two iterables without any duplicates,
+  - Iterable.distinct() - Returns the iterable without any duplicates.
+  - Collection.toMutableList() - Returns a mutable list of the collection the method is invoked on.
+
+````Kotlin
+val strings = listOf("Hello", "There", "Hello", "There")
+val moreStrings = listOf("I", "Am", "The", "Senate")
+
+val kenobi = strings.last() //"There"
+val hello = strings.first() //"Hello"
+val reversed = strings.asReversed() //["There", "Hello", "There", "Hello"]
+val willBeNull = strings.getOrNull(5) //Null
+val maxValue = strings.maxOrNull() //"There"
+val combined = strings.zip(moreStrings) //[("Hello", "I"), ("There", "Am"), ("Hello", "The"), ("There", "Senate")]
+val concatenated = strings + moreStrings //["Hello", "There", "Hello", "There", "I", "Am", "The", "Senate"]
+val union = strings.union(moreStrings) //["Hello", "There", "I", "Am", "The", "Senate"]
+val noDuplicates = strings.distinct() //["Hello", "There]
+val mutable = strings.toMutableList()
 ````
