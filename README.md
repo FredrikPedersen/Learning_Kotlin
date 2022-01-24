@@ -1124,3 +1124,39 @@ val union = strings.union(moreStrings) //["Hello", "There", "I", "Am", "The", "S
 val noDuplicates = strings.distinct() //["Hello", "There]
 val mutable = strings.toMutableList()
 ````
+
+### Maps and Destructuring Declarations
+
+- Maps themselves does not differ from how they function in Java.
+- The standard Map in Kotlin is an implementation of java.util.LinkedHashMap, and is immutable.
+- The mutable version is also an implementation of the same Java-class.
+- If you don't want a LinkedHashMap, you can specify what type of map you want by calling the appropriate *MapOf()*-function.
+  - E.g. *hashMapOf()* or *linkedMapOf()*
+- Destructuring is to take values in a collection and distributing them to separate variables.
+  - To be able to destructure a class, one must implement component functions. 
+  - Note that data classes gets the component functions out of the box.
+
+````Kotlin
+//Manually adding component functions to allow destructuring
+class Employee (val firstName: String, val lastName: String, val startYear: Int) { 
+  operator fun component1() = firstName
+  operator fun component2() = lastName
+  operator fun component3() = startYear
+}
+
+val employee1 = Employee("Fredrik", "Pedersen", 2022)
+val employee2 = Employee("Thomas", "Kristiansen", 2022)
+
+val immutableMap = mapOf(
+  1 to employee1,
+  2 to employee2
+)
+
+//Destructuring the map's values
+for ((key, value) in immutableMap) {
+    //doSomething
+}
+
+//Destructuring an Employee object
+val (firstName, lastName, yearStarted) = employee1
+````
