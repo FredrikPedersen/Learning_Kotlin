@@ -1167,16 +1167,55 @@ val (firstName, lastName, yearStarted) = employee1
 - Instantiated in the same way as lists and maps using the setOf-function.
 - Is an implementation of java.util.LinkedHashSet.
 - Some Kotlin functions for sets:
-  - Set.plus(element: T) - Returns a new set containing the invoked Set-object plus element. Returns only the invoked Set-object if element is a duplicate of an already existing value.
-  - Set.minus(element: T) - Same functionality as plus, but removes element.
-  - Iterable.drop(n: Int) - Returns a new set without the values at the first n indexes in the set.
-  - Iterable.average() - Returns a double with the average value of the set, only available for Iterables with types extending Number.
+  - Set.plus(element: T) 
+    - Returns a new set containing the invoked Set-object plus element. Returns only the invoked Set-object if element is a duplicate of an already existing value.
+  - Set.minus(element: T) 
+    - Same functionality as plus, but removes element.
+  - Iterable.drop(n: Int) 
+    - Returns a new set without the values at the first n indexes in the set.
+  - Iterable.average() 
+    - Returns a double with the average value of the set, only available for Iterables with types extending Number.
 - Note that none of the above functions directly modifies the set the function is invoked upon, even if it is a MutableSet.
 
 ````Kotlin
-val intSet = setOf(10, 15, 19, 5, 3)
+val intSet = setOf(10, 15, 19, 4, 3)
 val plusSet = intSet.plus(100) //[10, 15, 19, 5, 3, 100] 
 val minusSet = intSet.minus(5) //[10, 15, 19, 3]
 val averageValue = intSet.average() //10.4
 val droppedSet = intSet.drop(2) //[19, 5, 3, -22]
+````
+
+### More Collections Functions
+
+- Iterable.filter(predicate: (T) -> Boolean)
+  - Takes in a lambda expression to remove any values not matching the predicate in an Iterable.
+- Iterable.map(transform: (T) -> R)
+  - Applies the transform-function to each element in the Iterable.
+- Iterable.all(predicate: (T) -> Boolean)
+  - Verifies if all values in the collection matches the predicate.
+- Iterable.count(predicate: (T) -> Boolean)
+  - Counts all values matching the predicate.
+- Iterable.find(predicate: (T) -> Boolean)
+  - Returns the first value matching the predicate.
+- Iterable.groupBy(keySelector: (T) -> K)
+  - Groups the elements in the Iterable by the given selector.
+- Iterable.sortedBy(crossinline selector: (T) -> R?)
+  - Sorts the Iterable by the given selector
+- All of the above functions returns new instances of the Collections they are invoked upon, so they do not modify them.
+
+````Kotlin
+val employeeList = listOf(
+  Employee("Fredrik", "Pedersen", 2022),
+  Employee("Thomas", "Kristiansen", 2022),
+  Employee("Joakim", "Standal", 2019),
+)
+
+val filteredMap = employeeList.filter { it.startYear == 2019} //{3=Employee(firstName=Joakim, lastName=Standal, startYear=2019)}
+val nameMap = employeeList.map { it.firstName } //["Fredrik", "Thomas", "Joakim"]
+val chainedFilterAndMap = employeeList.filter { it.startYear == 2022 }.map { it.firstName } //["Fredrik", "Thomas"]
+val isAllStartDuringLastYear = employeeList.all {it.startYear >= 2021} //false
+val countThisYear = employeeList.count { it.startYear == 2022 } //2
+val found = employeeList.find { it.startYear > 2020 } //Employee(firstName=Fredrik, lastName=Pedersen, startYear=2022)
+val sorted = employeeList.sortedBy { it.firstName } //[Employee(firstName=Fredrik, lastName=Pedersen, startYear=2022), Employee(firstName=Joakim, lastName=Standal, startYear=2019), Employee(firstName=Thomas, lastName=Kristiansen, startYear=2022)]
+
 ````
