@@ -52,7 +52,8 @@ More important than course notes, the **[Kotlin documentation](https://kotlinlan
 
  - 6.1 [Lambda Expressions](#lambda-expressions)
  - 6.2 [Lists](#lists)
- - 6.3 [Kotlin Collections Functions](#collections-functions)
+ - 6.3 [Collections Functions](#collections-functions)
+ - 6.4 [Maps and Destructuring](#maps-and-destructuring-declarations)
 
 ## 0 Compilation
 
@@ -1159,4 +1160,23 @@ for ((key, value) in immutableMap) {
 
 //Destructuring an Employee object
 val (firstName, lastName, yearStarted) = employee1
+````
+
+### Sets
+
+- Instantiated in the same way as lists and maps using the setOf-function.
+- Is an implementation of java.util.LinkedHashSet.
+- Some Kotlin functions for sets:
+  - Set.plus(element: T) - Returns a new set containing the invoked Set-object plus element. Returns only the invoked Set-object if element is a duplicate of an already existing value.
+  - Set.minus(element: T) - Same functionality as plus, but removes element.
+  - Iterable.drop(n: Int) - Returns a new set without the values at the first n indexes in the set.
+  - Iterable.average() - Returns a double with the average value of the set, only available for Iterables with types extending Number.
+- Note that none of the above functions directly modifies the set the function is invoked upon, even if it is a MutableSet.
+
+````Kotlin
+val intSet = setOf(10, 15, 19, 5, 3)
+val plusSet = intSet.plus(100) //[10, 15, 19, 5, 3, 100] 
+val minusSet = intSet.minus(5) //[10, 15, 19, 3]
+val averageValue = intSet.average() //10.4
+val droppedSet = intSet.drop(2) //[19, 5, 3, -22]
 ````
