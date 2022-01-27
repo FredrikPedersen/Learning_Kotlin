@@ -1251,12 +1251,24 @@ val sequencedFilterAndMap = employeeList.asSequence().filter { it.startYear == 2
 
 - Generics in Kotlin and Java aren't any different in their behaviour, but there are a few extra functionalities in Kotlin.
 - The syntax is also the same.
+- Multiple upper bounds can be defined using the where-keyword after the function parameter list
+  - When defining multiple upper bounds, keep in mind that you can have multiple interfaces, but only one class.
+  - When no upper bound is defined, *Any?* is the default upper bound.
 
 ````Kotlin
-//Example of an Extension function to print any type of List using generics
-fun <T> List<T>.printList() {
-    for (item in this) {
-        println(item)
-    }
+//Example of a function to convert a list containing any type of numbers to integers
+fun <T: Number> convertToInt(collection: List<T>): List<Int> {
+  val intList = mutableListOf<Int>()
+
+  for (num in collection) {
+    intList.add(num.toInt())
+  }
+
+  return intList
+}
+
+//Function with multiple upper bounds for the generic T
+fun <T> append(item1: T, item2: T): Appendable where T: CharSequence, T: Appendable {
+  return item1.append(item2)
 }
 ````
