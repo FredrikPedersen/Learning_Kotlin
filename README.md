@@ -54,6 +54,9 @@ More important than course notes, the **[Kotlin documentation](https://kotlinlan
  - 6.2 [Lists](#lists)
  - 6.3 [Collections Functions](#collections-functions)
  - 6.4 [Maps and Destructuring](#maps-and-destructuring-declarations)
+ - 6.5 [Sets](#sets)
+ - 6.6 [More Collections Functions](#more-collections-functions)
+ - 6.7 [Sequences](#sequences)
 
 ## 0 Compilation
 
@@ -1217,5 +1220,30 @@ val isAllStartDuringLastYear = employeeList.all {it.startYear >= 2021} //false
 val countThisYear = employeeList.count { it.startYear == 2022 } //2
 val found = employeeList.find { it.startYear > 2020 } //Employee(firstName=Fredrik, lastName=Pedersen, startYear=2022)
 val sorted = employeeList.sortedBy { it.firstName } //[Employee(firstName=Fredrik, lastName=Pedersen, startYear=2022), Employee(firstName=Joakim, lastName=Standal, startYear=2019), Employee(firstName=Thomas, lastName=Kristiansen, startYear=2022)]
+````
+
+### Sequences
+
+- Sequences offer the same functionality as Iterable, but implement another aproach to multi-step Collection processing.
+- They are essentially the same as Streams in Java.
+- When performing operations on a Collection using sequences, each item in the Collection is evaluated individually per operation.
+  - When not using sequences and just chaining function calls, one operation is performed on the entire Collection before returning a new modified Collection and then performing the next operation.
+  - This results in one intermediary Collection being created per function call, which is highly cost inefficient and can lead to problems if working with larger Collections. 
+- Kotlin Collections are already very efficient, so only use Sequences when working with large collections.
+  - Using sequences with smaller collections or when doing few operations may result in performance loss rather.
+- [This article](https://typealias.com/guides/when-to-use-sequences/) provides some general guidelines for when to use Sequences vs chaining Collection operations.
+
+````Kotlin
+val employeeList = listOf(
+  Employee("Fredrik", "Pedersen", 2022),
+  Employee("Thomas", "Kristiansen", 2022),
+  Employee("Joakim", "Standal", 2019),
+)
+
+//First the filter is invoked in the list, returning a new filtered list. Then map is invoked on the filtered list, once again returning a new list.
+val chainedFilterAndMap = employeeList.filter { it.startYear == 2022 }.map { it.firstName } //["Fredrik", "Thomas"]
+
+//Converting to a sequence first evaluates each value individually for each step, never returning any intermediary lists.
+val sequencedFilterAndMap = employeeList.asSequence().filter { it.startYear == 2022 }.map { it.firstName }.toList() //["Fredrik", "Thomas"]
 
 ````
