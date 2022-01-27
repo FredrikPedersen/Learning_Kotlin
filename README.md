@@ -1247,3 +1247,16 @@ val chainedFilterAndMap = employeeList.filter { it.startYear == 2022 }.map { it.
 val sequencedFilterAndMap = employeeList.asSequence().filter { it.startYear == 2022 }.map { it.firstName }.toList() //["Fredrik", "Thomas"]
 
 ````
+### Generics
+
+- Generics in Kotlin and Java aren't any different in their behaviour, but there are a few extra functionalities in Kotlin.
+- The syntax is also the same.
+
+````Kotlin
+//Example of an Extension function to print any type of List using generics
+fun <T> List<T>.printList() {
+    for (item in this) {
+        println(item)
+    }
+}
+````
