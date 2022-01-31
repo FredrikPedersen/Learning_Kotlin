@@ -1329,7 +1329,7 @@ fun tendGarden(roseGarden: Garden<Rose>) {
 ````
 
 - Contravariance is the opposite of covariance, i.e. you accept an instance of a subclass or any of its superclass.
-- Cotravariance is enabled using the out keyword.
+- Contravariance is enabled using the out keyword.
 - Contravariance variables can only be passed into a function, not returned.
 
 ````Kotlin
@@ -1360,4 +1360,24 @@ fun main(args: Array<String>) {
   daffodilGarden.tendFlower(1)
 
 }
+````
+
+ - When working with variance, we separate between declaration-site variance and use-site variance.
+   - Declaration-site variance is what we have been doing previously using in and out to define co- and contravariance at class or interface level,
+   - Use-site variance is when you declare variance exactly where you are going to use it, like at a function level.
+
+````Kotlin
+open class Car {}
+class Toyota: Car() {}
+class Ford: Car() {}
+
+fun <T> copyCars(source: MutableList<out T>, destination: MutableList<T>) {
+    for (car in source) {
+        destination.add(car)
+    }
+}
+
+val cars = mutableListOf(Car(), Car())
+val fords = mutableListOf(Ford(), Ford())
+copyCars(fords, cars)
 ````
