@@ -1272,3 +1272,23 @@ fun <T> append(item1: T, item2: T): Appendable where T: CharSequence, T: Appenda
   return item1.append(item2)
 }
 ````
+
+ - Inline function parameters can be reified, meaning their type is not erased at runtime.
+ - If a function is declared as inline, and its generic parameter as reified, the parameter's type can be checked at runtime.
+   - Detailed explanations of inline and reified can be found in this [StackOverflow thread](https://stackoverflow.com/questions/45949584/how-does-the-reified-keyword-in-kotlin-work)
+ - The reified keyword only works for inlined functions.
+ - An inlined function with reified type is **not** callable from Java code.
+
+````Kotlin
+inline fun <reified T> getElementsOfType(list: List<Any>): List<T> { 
+  val newList: MutableList<T> = mutableListOf()
+  
+  for (element in list) {
+      if (element is T) {
+          newList.add(element)
+      }
+  }
+  
+  return newList
+}
+````
