@@ -60,6 +60,10 @@ More important than course notes, the **[Kotlin documentation](https://kotlinlan
  - 6.8 [Generics](#generics)
  - 6.9 [Generics: Covariance, Contravariance and Use-Site Variance](#generics-covariance-contravariance-and-use-site-variance)
 
+7. [File I/O](#7-file-io)
+
+ - 7.1 [Reading Text Files](#reading-text-files)
+
 ## 0 Compilation
 
 When Kotlin code is compiled, the Kotlin Compiler (kotlinc) takes files with the .kt extension as input and generates
@@ -1365,6 +1369,7 @@ fun main(args: Array<String>) {
  - When working with variance, we separate between declaration-site variance and use-site variance.
    - Declaration-site variance is what we have been doing previously using in and out to define co- and contravariance at class or interface level,
    - Use-site variance is when you declare variance exactly where you are going to use it, like at a function level.
+ - Use-Site variance is how variance is handled in Java when using wildcards.
 
 ````Kotlin
 open class Car {}
@@ -1380,4 +1385,43 @@ fun <T> copyCars(source: MutableList<out T>, destination: MutableList<T>) {
 val cars = mutableListOf(Car(), Car())
 val fords = mutableListOf(Ford(), Ford())
 copyCars(fords, cars)
+````
+
+## 7 File I/O
+
+ - Kotlin does not have its own I/O classes, but has added some functionality to the native Java methods.
+ - Everything related to I/O in Kotlin is located in the kotlin.io-package
+   - Documentation for the extended Java classes can be found [here](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/)
+
+### Reading Text Files
+
+ - For the following examples, imagine having a testFile.txt in the resources folder with the following contents:
+
+````text
+This is line 1
+Hello from line 2
+line 3
+I am line 4
+Here is line 5
+````
+
+- The Kotlin File Reader class closes the resource stream for you
+  - The documentation does not specify this unless you explicitly have to close the stream yourself.
+
+````Kotlin
+val file = File("src/main/resources/testFile.txt")
+
+//Returns a List with each line as an element
+val lines = file.reader().readLines()
+
+//Returns the entire file as one String, has to be closed manually
+val reader = file.reader()
+val text = reader.readText()
+reader.close()
+
+//Using the use function, one does not have to close a resource manually
+val text = file.reader().use { it.readText() }
+
+//To read just some lines instead of the entire file at once, use the forEachLine function
+val lines = file.reader().forEachLine { println(it) }
 ````
