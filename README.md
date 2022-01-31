@@ -1292,3 +1292,68 @@ inline fun <reified T> getElementsOfType(list: List<Any>): List<T> {
   return newList
 }
 ````
+
+### Generics: Covariance, Contravariance and Use-Site Variance
+
+- These topics are rather poorly explained in the course, take a look at these sources for a better understanding:
+  - [Kotlin Covariance and Contravariance - Medium articly by mvndy](https://medium.com/kotlin-thursdays/introduction-to-kotlin-generics-9d18d3719e1d)
+  - [Generics: in, out, where - Kotlin Docs](https://kotlinlang.org/docs/generics.html)
+  - [Unsafe Variance](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unsafe-variance/) (To allow out-types as in-types)
+  
+- A covariance class is a generic class where subtyping is preserved, i.e. you can accept a class or any of its sub-classes.
+- The out-keyword enables covariance.
+
+````Kotlin
+open class Flower {}
+class Rose: Flower() {}
+
+class Garden<out T: Flower> {
+
+  val flowers: List<T> = listOf()
+
+  fun pickFlower(i: Int): T = flowers[i]
+  
+  //Not allowed due to T being marked as out. 
+  //Can use @UnsafeVariance to override the compiler if one is certain that the function won't mutate the object.
+  fun plantFlower(flower: T) {} 
+}
+
+fun waterGarden(garden: Garden<Flower>) {}
+
+fun tendGarden(roseGarden: Garden<Rose>) {
+  waterGarden(roseGarden) //This is allowed because the Garden's generic is marked as covariant (out).
+}
+````
+
+- Contravariance is the opposite of covariance, i.e. you accept an instance of a subclass or any of its superclass.
+- Cotravariance is enabled using the out keyword.
+
+````Kotlin
+open class Flower(val name: String) {}
+class Rose: Flower("Rose") {}
+class Daffodil: Flower("Daffodil") {}
+
+class Garden<T: Flower>(val flowers: List<T>, val flowerCare: FlowerCare<T>) {
+  fun pickFlower(i: Int): T = flowers[i]
+  fun tendFlower(i: Int) {
+    flowerCare.prune(flowers[i])
+  }
+}
+
+interface FlowerCare<in T> {
+  fun prune(flower: T)
+}
+
+fun main(args: Array<String>) {
+  val flowerTender = object: FlowerCare<Flower> {
+    override fun prune(flower: Flower) = println("I am pruning a ${flower.name}")
+  }
+
+  val roseGarden = Garden(listOf(Rose(), Rose()), flowerTender)
+  val daffodilGarden = Garden(listOf(Daffodil(), Daffodil()), flowerTender)
+
+  roseGarden.tendFlower(1)
+  daffodilGarden.tendFlower(1)
+
+}
+````
