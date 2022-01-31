@@ -57,6 +57,8 @@ More important than course notes, the **[Kotlin documentation](https://kotlinlan
  - 6.5 [Sets](#sets)
  - 6.6 [More Collections Functions](#more-collections-functions)
  - 6.7 [Sequences](#sequences)
+ - 6.8 [Generics](#generics)
+ - 6.9 [Generics: Covariance, Contravariance and Use-Site Variance](#generics-covariance-contravariance-and-use-site-variance)
 
 ## 0 Compilation
 
@@ -1302,6 +1304,7 @@ inline fun <reified T> getElementsOfType(list: List<Any>): List<T> {
   
 - A covariance class is a generic class where subtyping is preserved, i.e. you can accept a class or any of its sub-classes.
 - The out-keyword enables covariance.
+- Covariance variables can only be returned, not passed into a function.
 
 ````Kotlin
 open class Flower {}
@@ -1327,6 +1330,7 @@ fun tendGarden(roseGarden: Garden<Rose>) {
 
 - Contravariance is the opposite of covariance, i.e. you accept an instance of a subclass or any of its superclass.
 - Cotravariance is enabled using the out keyword.
+- Contravariance variables can only be passed into a function, not returned.
 
 ````Kotlin
 open class Flower(val name: String) {}
