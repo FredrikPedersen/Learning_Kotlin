@@ -937,6 +937,10 @@ val x: Int = try {
 }
 ````
 
+ - The try-with-resources functionality is also present in Kotlin, but not as a language construct.
+ - Instead, resource-holder objects has an extensions function called use which serves the same purpose. 
+   - See [Reading Text files chapter](#reading-text-files) or [Baeldung's Article](https://www.baeldung.com/kotlin/try-with-resources) for more information.
+
 ## 6 Lambda Expressions, Collections and Generics
 
 - Kotlin has a couple of it's own collection classes, but mostly uses the Java collections with some added convenience functions.
@@ -1425,3 +1429,4 @@ val text = file.reader().use { it.readText() }
 //To read just some lines instead of the entire file at once, use the forEachLine function
 val lines = file.reader().forEachLine { println(it) }
 ````
+
