@@ -1399,16 +1399,6 @@ copyCars(fords, cars)
 
 ### Reading Text Files
 
- - For the following examples, imagine having a testFile.txt in the resources folder with the following contents:
-
-````text
-This is line 1
-Hello from line 2
-line 3
-I am line 4
-Here is line 5
-````
-
 - The Kotlin File Reader class closes the resource stream for you
   - The documentation does not specify this unless you explicitly have to close the stream yourself.
 
@@ -1430,3 +1420,17 @@ val text = file.reader().use { it.readText() }
 val lines = file.reader().forEachLine { println(it) }
 ````
 
+### Walking the File Tree
+
+ - Kotlin has some utility functions for navigating a file tree
+ - All walk functions returns sequences.
+
+````Kotlin
+//Walks the file tree in top-down, depth-first order from the current directory.
+File(".").walktTopDown().forEach { println(it) }
+
+//Filters the sequence to only print Kotlin-files.
+File(".").walkTopDown()
+  .filter { it.name.endsWith(".kt") }
+  .forEach { println(it) }
+````
